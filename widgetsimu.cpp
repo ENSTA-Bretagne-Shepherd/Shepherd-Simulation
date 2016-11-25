@@ -12,6 +12,8 @@ extern double dt;
 WidgetSimu::WidgetSimu()
 {   Zoom=0.5;    zCam=1000;   xCam=-1100;
     deltag=0;    deltavmax=0.3;
+    
+    cx=0;cy=0;
 }
 
 
@@ -20,9 +22,26 @@ void WidgetSimu::Start()
 }
 
 void WidgetSimu::Clock()
-{   sailboat1.Clock();
-    DrawSailboat();
-    //updateGL();
+{   
+	DrawMer();	
+	
+	sailboat1.cx = cx+100;
+	sailboat1.cy = cy+100;
+	sailboat2.cx = cx-100;
+	sailboat2.cy = cy+100;
+	sailboat3.cx = cx+100;
+	sailboat3.cy = cy-100;
+	sailboat4.cx = cx-100;
+	sailboat4.cy = cy-100;
+	sailboat1.Clock();
+	sailboat2.Clock();
+	sailboat3.Clock();
+	sailboat4.Clock();
+    DrawSailboat(sailboat1);
+    DrawSailboat(sailboat2);
+    DrawSailboat(sailboat3);
+    DrawSailboat(sailboat4);
+    
 }
 
 
@@ -57,7 +76,10 @@ void WidgetSimu::paintGL()
           DrawMer();
           DrawBouees();
         glPopMatrix();
-        DrawSailboat();
+        DrawSailboat(sailboat1);
+        DrawSailboat(sailboat2);
+        DrawSailboat(sailboat3);
+        DrawSailboat(sailboat4);
 }
 
 
@@ -95,16 +117,26 @@ void WidgetSimu::DrawBouees()
 
 
 
-void WidgetSimu::DrawSailboat()
+void WidgetSimu::DrawSailboat(sailboat const&boat)
 
 {
-	glBegin(GL_LINES);  //ligne à suivre
-            glVertex3f(sailboat1.ax,sailboat1.ay,1);
-            glVertex3f(sailboat1.bx,sailboat1.by,1);
+	//*
+	glPushMatrix();
+	glBegin(GL_LINE_LOOP);  //ligne à suivre
+			float ax=boat.cx+50*cos(0*2*M_PI/3);
+    		float ay=boat.cy+50*sin(0*2*M_PI/3);
+    		float bx=boat.cx+50*cos(1*2*M_PI/3);
+    		float by=boat.cy+50*sin(1*2*M_PI/3);
+    		float dx=boat.cx+50*cos(2*2*M_PI/3);
+    		float dy=boat.cy+50*sin(2*2*M_PI/3);
+            glVertex3f(ax,ay,1);
+            glVertex3f(bx,by,1);
+            glVertex3f(dx,dy,1);
     glEnd();
+    //*/
 	
     // ***************************************
-    	glTranslated(sailboat1.x,sailboat1.y,0.0);
+    	glTranslated(boat.x,boat.y,0.0);
 		glPushMatrix();
 		//printf("position :%f %f \n",sailboat1.x, sailboat1.y);
         
@@ -113,7 +145,7 @@ void WidgetSimu::DrawSailboat()
         //       WIND
         // ***************************************
 
-                    glRotatef((sailboat1.psi+0.5*M_PI)*180.0/M_PI,0.0,0.0,1.0);
+                    glRotatef((boat.psi+0.5*M_PI)*180.0/M_PI,0.0,0.0,1.0);
                     glBegin(GL_LINES);  //Fleche vent
                             double a=1;
                             glColor3f(0.7,0.1,0);             glVertex3f(3,14,13);
@@ -128,9 +160,9 @@ void WidgetSimu::DrawSailboat()
 
 
         glPopMatrix();
-        glRotatef(sailboat1.theta*180.0/M_PI,0.0,0.0,1.0);
+        glRotatef(boat.theta*180.0/M_PI,0.0,0.0,1.0);
         glPushMatrix();
-        glRotatef(sailboat1.phi*180.0f/M_PI,1,0,0);
+        glRotatef(boat.phi*180.0f/M_PI,1,0,0);
 
         // ***************************************
         //       COQUE
@@ -238,7 +270,7 @@ void WidgetSimu::DrawSailboat()
         glPopMatrix();
         glPushMatrix();
              glTranslatef(-1,0,0);
-             glRotatef(sailboat1.deltag*180.0/M_PI,0,0,1);
+             glRotatef(boat.deltag*180.0/M_PI,0,0,1);
 
              // ***************************************
              //       RUDDER
@@ -267,7 +299,7 @@ void WidgetSimu::DrawSailboat()
         glPopMatrix();
         glPushMatrix();
             glTranslatef(5,0,0);
-            glRotatef(sailboat1.deltav*180.0/M_PI,0,0,1);
+            glRotatef(boat.deltav*180.0/M_PI,0,0,1);
 
            // ***************************************
            //       SAIL
@@ -304,4 +336,5 @@ void WidgetSimu::DrawSailboat()
                 glDisable(GL_TEXTURE_2D);
             }
         glPopMatrix();
+    glPopMatrix();
 }
