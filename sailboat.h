@@ -13,12 +13,13 @@ class sailboat
             double eta;//viscosité
             double hv; // hauteur de centre de poussée
 
-            double ax,ay,bx,by;
             int q;
+            double cx,cy;// centre du triangle
+            int iseg;// numero du segment
 
             void Clock();
             void Controller();
-            explicit sailboat ();
+            explicit sailboat();
         ~sailboat();
  };
 

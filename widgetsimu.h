@@ -26,11 +26,18 @@ public:
 
     void DrawMer();
     void DrawBouees();
-    void DrawSailboat();
+    void DrawSailboat(sailboat const&boat);
     int xCam,yCam,zCam;
     float Zoom;
 
     sailboat sailboat1;
+    sailboat sailboat2;
+    sailboat sailboat3;
+    sailboat sailboat4;
+    double cx,cy;
+    
+    
+    
     double deltavmax;
     double deltag;
 };
