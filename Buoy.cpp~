@@ -6,42 +6,99 @@
 extern double dt;
 
 
-Buoy::Buoy()
-{   sigma = 10.0; beta = 8.0/3.0; rho = 24.3;x = 0.0;y = 0.0;z=0.0;number = 0;
-    k = 1.0;u = 0.0; xdot = 0.0; ydot = 0.0; zdot = 0.0;
+class Buoy 
+{
+    public:
+        double* Lorenz(void);
+        double* Pendulum(void);
+        double* Lorenz(void);
+        double* StateEq(void);
+        void Clock(void);
+        Buoy(double xb, double yb, double zb, double ub);
+
+    private:
+        double x;
+        double y;
+        double z;
+        double u;
+};
+
+
+
+
+// test class
+
+
+/*
+class Buoy 
+{
+    public:
+        void setX(double x);
+        double getX(void);
+        Buoy(double xb, double yb, double zb, double ub);
+    private:
+        double x;
+        double y;
+        double z;
+        double u;
+};
+
+*/
+
+Buoy::Buoy(double xb, double yb, double zb, double ub)
+{    
+    x = xb;
+    y = yb;
+    z = zb;
+    u = ub;
 }
 
+
+/*
 Buoy::~Buoy()
 {
-}
-
-double sign(double a)
-{if (a>0) return 1; else return -1;};
+}*/
 
 
-
-void Buoy::Lorenz()
+double* Buoy::Lorenz(void)
 {
-    xdot = sigma*(y-x);
-    ydot = x*(rho-z)-y;
-    zdot = k*(x-y-beta*z)+u;
+    double sigma = 10.0; 
+    double beta = 8.0/3.0; 
+    double rho = 24.3;
+    double k = 1.0;
+    double* Xdot = new double[3];
+    Xdot[0] = sigma*(y-x);
+    Xdot[1] = x*(rho-z)-y;
+    Xdot[2] = k*(x-y-beta*z)+u;
+    return Xdot;
 }
 
 
-void Buoy::Pendulum()
+double* Buoy::Pendulum(void)
 {
-    xdot = y;
-    ydot = -sin(x);
-    zdot = u;
+    double* Xdot = new double[3];
+    Xdot[0] = y;
+    Xdot[1] = -sin(x);
+    Xdot[2] = u;
+    return Xdot;
 }
 
-void Buoy::Clock()  // The model is described in "L. Jaulin Modélisation et commande d'un bateau à voile, CIFA2004, Douz (Tunisie)"
+double* Buoy::StateEq(void)
+{
+    double* Xdot = new double[3];
+    Xdot[0] = sin(0.001*(y+0.9*z));
+    Xdot[1] = -sin(0.001*(x+z));
+    Xdot[2] = u;
+    return Xdot;
+}
+
+void Buoy::Clock(void)  // The model is described in "L. Jaulin Modélisation et commande d'un bateau à voile, CIFA2004, Douz (Tunisie)"
 {   
-
-
-    Pendulum();
-    x = x+dt*xdot;
-    y = y+dt*ydot;
-    z = z+dt*zdot;
+    Buoy b(0.0,0.0,0.0, 0.0);
+    double* Xdot = new double[3];
+    Xdot = b.Lorenz();
+    x = x+dt*Xdot[0];
+    y = y+dt*Xdot[1];
+    z = z+dt*Xdot[2];
     
 }
