@@ -1,6 +1,7 @@
 #include "sailboat.h"
 
 
+
 #include <GL/gl.h>
 #include <GL/glu.h>
 extern double dt;
@@ -102,3 +103,4 @@ void Buoy::Clock(void)  // The model is described in "L. Jaulin Modélisation et
     z = z+dt*Xdot[2];
     
 }
+

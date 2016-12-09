@@ -67,21 +67,18 @@ int main(int argc, char *argv[])
         glLoadIdentity();
 
         gluLookAt(-40,-40,300,0,0,0,0,0,1);
-        //glTranslated(0,0,2);
+        
+        
         glPushMatrix();
-
         if(event.button.x!=0 && event.button.y!=0){a1=event.button.x;a2=event.button.y;}
         glRotated(a1*0.5,0,1,0);
-        glRotated(a2*0.5,1,0,0);
+        glRotated(a2*0.5,1,0,0);         
         
+        s.Clock();        
         
+        glPopMatrix(); 
         
-        //glPushMatrix();s.DrawBouees();glPopMatrix();
-        
-        s.Clock();
-        
-        
-        glPopMatrix();   
+          
 
         tempspasse = temps - SDL_GetTicks() + DELAY_FRAME;
         if (tempspasse < 10000)SDL_Delay(tempspasse);

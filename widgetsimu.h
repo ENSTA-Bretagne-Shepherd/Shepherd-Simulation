@@ -9,6 +9,7 @@
 #include <string.h>
 
 #include "sailboat.h"
+#include "Buoy.h"
 
 class WidgetSimu
 {
@@ -34,6 +35,10 @@ public:
     sailboat sailboat2;
     sailboat sailboat3;
     sailboat sailboat4;
+    
+    Buoy  bouees[50];
+    int nbbouees;
+    
     double cx,cy;
     
     

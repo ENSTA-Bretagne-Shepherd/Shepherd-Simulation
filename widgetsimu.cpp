@@ -13,6 +13,13 @@ WidgetSimu::WidgetSimu()
 {   Zoom=0.5;    zCam=1000;   xCam=-1100;
     deltag=0;    deltavmax=0.3;
     
+    nbbouees=5;
+    int k;
+    for(k=0;k<nbbouees;k++){
+    	bouees[k].x=k*10;
+    	//bouees[k].y=k*10;
+    }
+    
     cx=0;cy=0;
 }
 
@@ -22,8 +29,9 @@ void WidgetSimu::Start()
 }
 
 void WidgetSimu::Clock()
-{   
+{
 	DrawMer();	
+	DrawBouees();
 	
 	sailboat1.cx = cx+100;
 	sailboat1.cy = cy+100;
@@ -106,12 +114,17 @@ void WidgetSimu::DrawMer()
 }
 
 void WidgetSimu::DrawBouees()
-{   for (int k=1;k<3;k++)
-    {  glTranslatef(10,0, 0);
-       glColor3f(1, 0.0, 0.0);
-       GLUquadricObj* q=gluNewQuadric();
-       gluQuadricDrawStyle(q,GLU_FILL);
-       gluSphere(q,1.0,10,10);
+{   for (int k=0; k<nbbouees ;k++)
+    {
+    	glPushMatrix();
+    	
+    	glTranslatef(bouees[k].x,bouees[k].y, bouees[k].z);
+        glColor3f(1, 0.0, 0.0);
+        GLUquadricObj* q=gluNewQuadric();
+        gluQuadricDrawStyle(q,GLU_FILL);
+        gluSphere(q,1.0,10,10);
+        
+        glPopMatrix();
     }
 }
 
