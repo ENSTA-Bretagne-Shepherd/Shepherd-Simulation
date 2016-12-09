@@ -128,7 +128,7 @@ void WidgetSimu::DrawBouees()
     	glPushMatrix();
     	
     	glTranslatef(bouees[k].x,bouees[k].y, bouees[k].z);
-        glColor4f(1, 0.0, 0.0);
+        glColor3f(1, 0.0, 0.0);
         GLUquadricObj* q=gluNewQuadric();
         gluQuadricDrawStyle(q,GLU_FILL);
         gluSphere(q,1.0,10,10);
