@@ -1,5 +1,4 @@
 #include "widgetsimu.h"
-#include "sailboat.h"
 #include "stdio.h"
 
 #include <GL/gl.h>
@@ -49,12 +48,15 @@ void WidgetSimu::Clock()
     DrawSailboat(sailboat2);
     DrawSailboat(sailboat3);
     DrawSailboat(sailboat4);
-    
+
+//    for (int i = 0; i <nbbouees ; ++i) {
+//        bouees[i].Clock();
+//    }
 }
 
 
 /************************/
-/*   dessin de la scène */
+/*   dessin de la scï¿½ne */
 /************************/
 
 void WidgetSimu::initializeGL()
@@ -63,7 +65,7 @@ void WidgetSimu::initializeGL()
     glEnable(GL_LIGHT0);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_NORMALIZE);
-    glClearColor(0.9,0.9,1,1);  //arrière plan
+    glClearColor(0.9,0.9,1,1);  //arriï¿½re plan
             static const GLfloat lightPos[4] = { 5.0f, 5.0f, 10.0f, 1.0f };
             glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
             glEnable(GL_LIGHTING);
@@ -135,7 +137,7 @@ void WidgetSimu::DrawSailboat(sailboat const&boat)
 {
 	//*
 	glPushMatrix();
-	glBegin(GL_LINE_LOOP);  //ligne à suivre
+	glBegin(GL_LINE_LOOP);  //ligne ï¿½ suivre
 			float ax=boat.cx+50*cos(0*2*M_PI/3);
     		float ay=boat.cy+50*sin(0*2*M_PI/3);
     		float bx=boat.cx+50*cos(1*2*M_PI/3);
@@ -199,16 +201,16 @@ void WidgetSimu::DrawSailboat(sailboat const&boat)
                                                    glVertex3f(3.1,1.9,1.01);          glVertex3f(3,2,1.01);
                                                 glEnd();
 
-                                                //--------------------------- faces latérales ---------------------------------------------------------------------
+                                                //--------------------------- faces latï¿½rales ---------------------------------------------------------------------
                                                 glTranslatef(-0.01,0,0);
-                                                glBegin(GL_POLYGON); //faces latérales droite
+                                                glBegin(GL_POLYGON); //faces latï¿½rales droite
                                                     glColor3f(0,1,0);
                                                     glVertex3f(-1,-1.5,0);       glVertex3f(-1, -1.9, 0.5);
                                                     glVertex3f(-1,-2,1.0);       glVertex3f(3,-2,1.0);
                                                     glVertex3f(3, -1.9, 0.5);    glVertex3f(3,-1.5,0);
                                                     glVertex3f(-1,-1.5,0);
                                                 glEnd();
-                                                glBegin(GL_POLYGON); //faces latérales gauche
+                                                glBegin(GL_POLYGON); //faces latï¿½rales gauche
                                                     glColor3f(0,0,1);
                                                     glVertex3f(-1,1.5,0);        glVertex3f(-1, 1.9, 0.5);
                                                     glVertex3f(-1,2,1.0);        glVertex3f(3,2,1.0);
@@ -251,9 +253,9 @@ void WidgetSimu::DrawSailboat(sailboat const&boat)
                                                     glVertex3f(3+0,2-0.4,1.0);         glVertex3f(3+0, 1.9-0.4, 0.5);
                                                     glVertex3f(3+0,1.5-0.4,0);         glVertex3f(3+0,-1.5+0.4,0);
                                                 glEnd();
-                                                // ------------------------ face arrière -----------------------------------------------
+                                                // ------------------------ face arriï¿½re -----------------------------------------------
                                                 glTranslatef(-0.01,0,0);
-                                                glBegin(GL_POLYGON); //face arrière
+                                                glBegin(GL_POLYGON); //face arriï¿½re
                                                     glColor3f(0.5,1,0);              glNormal3f(-1,0,0);
                                                     glVertex3f(-1,-1.5,0);           glVertex3f(-1, -1.9, 0.5);
                                                     glVertex3f(-1,-2,1.0);           glVertex3f(-1,2,1.0);
@@ -319,7 +321,7 @@ void WidgetSimu::DrawSailboat(sailboat const&boat)
            // ***************************************
 
             {   glColor3f(0.9,0.9,0.9);
-                GLUquadricObj*q1=gluNewQuadric();  //mât
+                GLUquadricObj*q1=gluNewQuadric();  //mï¿½t
                 gluQuadricOrientation(q1, GLU_OUTSIDE);
                 gluQuadricTexture(q1, GL_TRUE);
                 gluCylinder(q1,0.08,0.08,14, 10,10);

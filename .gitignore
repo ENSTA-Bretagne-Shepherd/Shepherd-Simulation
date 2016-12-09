@@ -4,9 +4,11 @@
 
 # IntelliJ project files
 .idea
+*.out
 *.iml
+build
+cmake-build-debug
 out
 gen
 Supprimerait .gitignore
 Supprimerait .idea/
-Supprimerait cmake-build-debug/

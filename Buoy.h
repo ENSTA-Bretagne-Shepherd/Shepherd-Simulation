@@ -8,8 +8,9 @@ class Buoy
 {    public:
             double x,y,z; // state variables
             double beta,sigma,rho,k; //parameters
-            double xdot,ydot,zdot;  //link variables
-
+            int n;
+            double u;
+            double Xdot[3];
 
             void Lorenz(void);
             void Pendulum(void);
@@ -21,7 +22,7 @@ class Buoy
             Buoy(int nb, double xb, double yb, double zb, double ub);
             
 
-        inline Buoy (){x=0;y=0;z=-10;xdot=0;ydot=0;zdot=0;}
+        inline Buoy (){x=0;y=0;z=-10;Xdot[0]=0;Xdot[1]=0;Xdot[2]=0;}
         //~Buoy();
  };
 

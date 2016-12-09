@@ -32,6 +32,8 @@ int boucle(SDL_Event* event);
 
 int main(int argc, char *argv[])
 {
+//    printf("SIMULATION STARTED\n");
+
     int k;
     SDL_Event event;
 

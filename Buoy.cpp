@@ -6,32 +6,6 @@
 #include <GL/glu.h>
 extern double dt;
 
-
-class Buoy 
-{
-    Buoy* b;
-    public:
-        void Lorenz(void);
-        void Pendulum(void);
-        void StateEq(void);
-        void SetCommand(double ub);
-        int GetNumber(void);
-        double* GetPos(void);
-        void Clock(void);
-        Buoy(int nb, double xb, double yb, double zb, double ub);
-
-    private:
-        int n;
-        double x;
-        double y;
-        double z;
-        double u;
-        double* Xdot;
-};
-
-
-
-
 Buoy::Buoy(int nb, double xb, double yb, double zb, double ub)
 {    
     n = nb;
@@ -52,7 +26,6 @@ void Buoy::Lorenz(void)
     Xdot[0] = sigma*(y-x);
     Xdot[1] = x*(rho-z)-y;
     Xdot[2] = k*(x-y-beta*z)+u;
-    
 }
 
 
@@ -101,6 +74,8 @@ void Buoy::Clock(void)  // The model is described in "L. Jaulin Modélisation et
     x = x+dt*Xdot[0];
     y = y+dt*Xdot[1];
     z = z+dt*Xdot[2];
-    
+
+    printf("State : %f %f %f \n",x,y,z);
+    fflush(stdout);
 }
 

@@ -18,5 +18,5 @@ set(SOURCE
         widgetsimu.cpp)
 
 
-add_executable(simu ${SOURCE})
-target_link_libraries(simu "-lSDLmain -lSDL -lGLU -lGL")
+add_executable(simu.out ${SOURCE})
+target_link_libraries(simu.out "-lSDLmain -lSDL -lGLU -lGL")
