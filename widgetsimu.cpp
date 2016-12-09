@@ -32,6 +32,8 @@ void WidgetSimu::Clock()
 	DrawMer();	
 	DrawBouees();
 	
+	
+	
 	sailboat1.cx = cx+100;
 	sailboat1.cy = cy+100;
 	sailboat2.cx = cx-100;
@@ -106,13 +108,18 @@ void WidgetSimu::resizeGL(int width, int height)
 
 
 void WidgetSimu::DrawMer()
-{       glBegin(GL_POLYGON);
-           glColor3f(0.5,0.5,1);
+{       
+	glEnable(GL_BLEND);
+	glDisable(GL_DEPTH_TEST);
+		glBegin(GL_POLYGON);
+           glColor4f(0.5,0.5,1,0.5);
            glVertex3f(-100000,-100000,0);
            glVertex3f(100000,-100000,0);
            glVertex3f(100000,100000,0);
            glVertex3f(-100000,100000,0);
         glEnd();
+    glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
 }
 
 void WidgetSimu::DrawBouees()
@@ -121,7 +128,7 @@ void WidgetSimu::DrawBouees()
     	glPushMatrix();
     	
     	glTranslatef(bouees[k].x,bouees[k].y, bouees[k].z);
-        glColor3f(1, 0.0, 0.0);
+        glColor4f(1, 0.0, 0.0);
         GLUquadricObj* q=gluNewQuadric();
         gluQuadricDrawStyle(q,GLU_FILL);
         gluSphere(q,1.0,10,10);

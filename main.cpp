@@ -49,10 +49,15 @@ int main(int argc, char *argv[])
     glLoadIdentity();
     gluPerspective(70,(double)LARGEUR_FENETRE/HAUTEUR_FENETRE,1,1000);    
     glEnable(GL_DEPTH_TEST);
+    
+    
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
+	//glDisable(GL_BLEND);
 
     
     WidgetSimu s;
-    s.initializeGL();
+    //s.initializeGL();
 
 
     k=0;
