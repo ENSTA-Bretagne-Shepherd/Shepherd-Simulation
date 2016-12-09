@@ -1,5 +1,5 @@
 #include "sailboat.h"
-
+#include <math.h>
 
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -14,10 +14,12 @@ sailboat::sailboat()
     a=2;
     psi=M_PI;  //vent
     eta = 16000;     hv = 4.00;  //Roulis
-    ax=-1000;ay=-2000,bx=1000;by=2000;   //line with wind
+    //ax=-1000;ay=-2000,bx=1000;by=2000;   //line with wind
     //ax=-1000;ay=0,bx=1000;by=0;   //line against wind
     q=1;
+    iseg=0;
 }
+
 
 sailboat::~sailboat()
 {
@@ -29,6 +31,13 @@ double sign(double a)
 void sailboat::Controller()   //voir www.ensta-bretagne.fr/jaulin/polyrobots.pdf
 {   double r=10;
     double zeta=M_PI/4;
+    double ax,bx,ay,by;
+    ax=cx+50*cos(iseg*2*M_PI/3);
+    ay=cy+50*sin(iseg*2*M_PI/3);
+    bx=cx+50*cos((iseg+1)*2*M_PI/3);
+    by=cy+50*sin((iseg+1)*2*M_PI/3);
+    if((x-bx)*(ax-bx) + (y-by)*(ay-by) < 0)iseg++;
+    
     double e=((bx-ax)*(y-ay)-(x-ax)*(by-ay))/hypot(ax-bx,ay-by);
     if (fabs(e)>r) q=0;  //The robot is now free from its closed-hauled mode
     double phi=atan2(by-ay,bx-ax);
@@ -63,3 +72,5 @@ void sailboat::Clock()  // The model is described in "L. Jaulin Modélisation et 
     phiPoint += (-phiPoint+fv*hv*cos(deltav)*cos(phi)/Jx - 10000*9.81*sin(phi)/Jx)*dt ;
     phi += phiPoint * dt;
 }
+
+

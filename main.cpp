@@ -24,7 +24,7 @@
 compilation: 
 g++ *.cpp -lSDLmain -lSDL -lGLU -lGL
 **/
-double dt = 0.02;
+double dt = 0.2;
 
 
 int boucle(SDL_Event* event);
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
         glMatrixMode( GL_MODELVIEW );
         glLoadIdentity();
 
-        gluLookAt(-50,-50,50,0,0,0,0,0,1);
+        gluLookAt(-40,-40,300,0,0,0,0,0,1);
         //glTranslated(0,0,2);
         glPushMatrix();
 
@@ -74,9 +74,9 @@ int main(int argc, char *argv[])
         glRotated(a1*0.5,0,1,0);
         glRotated(a2*0.5,1,0,0);
         
-        s.DrawMer();
         
-        glPushMatrix();s.DrawBouees();glPopMatrix();
+        
+        //glPushMatrix();s.DrawBouees();glPopMatrix();
         
         s.Clock();
         

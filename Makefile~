@@ -1,0 +1,14 @@
+GCC = gcc
+BIN = gps_reader
+
+all: Buoy
+
+Buoy: Buoy.cpp
+	g++ -Wall -o Buoy Buoy.cpp
+
+
+sailboat: sailboat.cpp
+	g++ -Wall -o sailboat sailboat.cpp
+
+clean: 
+	rm -f *~
