@@ -3,7 +3,9 @@
 
 #include <math.h>
 
-
+/**
+ * Classe bu bateau
+ */
 class Sailboat
 {    public:
             double x,y,theta,v,omega,phi,phiPoint; // state variables

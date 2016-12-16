@@ -142,12 +142,12 @@ void WidgetSimu::DrawSailboat(Sailboat const&boat)
 	//*
 	glPushMatrix();
 	glBegin(GL_LINE_LOOP);  //ligne � suivre
-			float ax=boat.cx+50*cos(0*2*M_PI/3);
-    		float ay=boat.cy+50*sin(0*2*M_PI/3);
-    		float bx=boat.cx+50*cos(1*2*M_PI/3);
-    		float by=boat.cy+50*sin(1*2*M_PI/3);
-    		float dx=boat.cx+50*cos(2*2*M_PI/3);
-    		float dy=boat.cy+50*sin(2*2*M_PI/3);
+			float ax = static_cast<float>(boat.cx+50*cos(0*2*M_PI/3));
+    		float ay = static_cast<float>(boat.cy+50*sin(0*2*M_PI/3));
+    		float bx = static_cast<float>(boat.cx+50*cos(1*2*M_PI/3));
+    		float by = static_cast<float>(boat.cy+50*sin(1*2*M_PI/3));
+    		float dx = static_cast<float>(boat.cx+50*cos(2*2*M_PI/3));
+    		float dy = static_cast<float>(boat.cy+50*sin(2*2*M_PI/3));
             glVertex3f(ax,ay,1);
             glVertex3f(bx,by,1);
             glVertex3f(dx,dy,1);
@@ -164,24 +164,24 @@ void WidgetSimu::DrawSailboat(Sailboat const&boat)
         //       WIND
         // ***************************************
 
-                    glRotatef((boat.psi+0.5*M_PI)*180.0/M_PI,0.0,0.0,1.0);
+                    glRotatef(static_cast<float>((boat.psi+0.5*M_PI)*180.0/M_PI),0.0,0.0,1.0);
                     glBegin(GL_LINES);  //Fleche vent
                             double a=1;
                             glColor3f(0.7,0.1,0);             glVertex3f(3,14,13);
-                            glVertex3f(3,14-a,13);            glVertex3f(3,14-a,13);
-                            glVertex3f(3,14-a,14);            glVertex3f(3,14-a,14);
-                            glVertex3f(3,12.5-a,12.5);        glVertex3f(3,12.5-a,12.5);
-                            glVertex3f(3,14-a,11);            glVertex3f(3,14-a,11);
-                            glVertex3f(3,14-a,12);            glVertex3f(3,14-a,12);
+                            glVertex3f(3,static_cast<float>(14-a),13);            glVertex3f(3,static_cast<float>(14-a),13);
+                            glVertex3f(3,static_cast<float>(14-a),14);            glVertex3f(3,static_cast<float>(14-a),14);
+                            glVertex3f(3,static_cast<float>(12.5-a),12.5);        glVertex3f(3,static_cast<float>(12.5-a),12.5);
+                            glVertex3f(3,static_cast<float>(14-a),11);            glVertex3f(3,static_cast<float>(14-a),11);
+                            glVertex3f(3,static_cast<float>(14-a),12);            glVertex3f(3,static_cast<float>(14-a),12);
                             glVertex3f(3,14,12);              glVertex3f(3,14,12);
                             glVertex3f(3,14,13);
                     glEnd();
 
 
         glPopMatrix();
-        glRotatef(boat.theta*180.0/M_PI,0.0,0.0,1.0);
+        glRotatef(static_cast<float>(boat.theta*180.0/M_PI),0.0,0.0,1.0);
         glPushMatrix();
-        glRotatef(boat.phi*180.0f/M_PI,1,0,0);
+        glRotatef(static_cast<float>(boat.phi*180.0f/M_PI),1,0,0);
 
         // ***************************************
         //       COQUE

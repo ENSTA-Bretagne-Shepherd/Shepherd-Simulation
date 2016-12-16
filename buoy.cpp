@@ -19,6 +19,8 @@ Buoy::Buoy(int nb, double xb, double yb, double zb, double ub)
     z = zb;
 
     // Caracteristiques physiques
+    m = 1; //kg
+    vol = 1; //m^-3
 
     // Command
     u = ub;

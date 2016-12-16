@@ -1,8 +1,5 @@
 #include "sailboat.h"
-#include <math.h>
 
-#include <GL/gl.h>
-#include <GL/glu.h>
 extern double dt;
 
 
@@ -19,7 +16,6 @@ Sailboat::Sailboat()
     q=1;
     iseg=0;
 }
-
 
 Sailboat::~Sailboat()
 {
@@ -42,16 +38,13 @@ void Sailboat::controller()   //voir www.ensta-bretagne.fr/jaulin/polyrobots.pdf
     if (fabs(e)>r) q=0;  //The robot is now free from its closed-hauled mode
     double phi=atan2(by-ay,bx-ax);
     double thetabar=phi-0.5*atan(e/r);
-    if ((q==0)&((cos(psi-thetabar)+cos(zeta)<0)|((fabs(e)<r)&(cos(psi-phi)+cos(zeta)<0)))) q=sign(e);
+    if ((q==0)&((cos(psi-thetabar)+cos(zeta)<0)|((fabs(e)<r)&(cos(psi-phi)+cos(zeta)<0)))) q=static_cast<int>(sign(e));
     if (q!=0)  thetabar=M_PI+psi-zeta*q;
     double dtheta=theta-thetabar;
     deltag=(1/M_PI)*(atan(tan(0.5*dtheta)));
     deltavmax=0.5*M_PI*(0.5*(cos(psi-thetabar)+1));
     //qDebug()<<"q="<<q<<",   e="<<e;
 }
-
-
-
 
 void Sailboat::clock()  // The model is described in "L. Jaulin Mod�lisation et commande d'un bateau � voile, CIFA2004, Douz (Tunisie)"
 {
