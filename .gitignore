@@ -4,11 +4,8 @@
 
 # IntelliJ project files
 .idea
-*.out
-*.iml
+doxydoc
 build
 cmake-build-debug
-out
-gen
-Supprimerait .gitignore
-Supprimerait .idea/
+
+*.out
