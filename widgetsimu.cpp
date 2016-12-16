@@ -137,8 +137,6 @@ void WidgetSimu::DrawBouees()
     }
 }
 
-
-
 void WidgetSimu::DrawSailboat(sailboat const&boat)
 
 {
