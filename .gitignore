@@ -4,8 +4,11 @@
 
 # IntelliJ project files
 .idea
+
+# Other folders
 doxydoc
 build
 cmake-build-debug
 
+# Output files
 *.out
