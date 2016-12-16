@@ -139,7 +139,7 @@ void WidgetSimu::DrawBouees()
 
 void WidgetSimu::DrawSailboat(sailboat const&boat)
 
-{
+{   
 	//*
 	glPushMatrix();
 	glBegin(GL_LINE_LOOP);  //ligne � suivre
