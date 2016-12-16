@@ -12,8 +12,8 @@ class Sailboat
             double beta, Jz, rg, rv, alphag, alphav, alphaf, alphatheta, l,m, Jx; //parameters
             double a,psi;  //wind
             double fg,fv,gamma,deltav,deltag,deltavmax;  //link variables
-            double eta;//viscosit�
-            double hv; // hauteur de centre de pouss�e
+            double eta;//viscosite
+            double hv; // hauteur de centre de pousse
 
             int q;
             double cx,cy;// centre du triangle

@@ -46,7 +46,7 @@ void Sailboat::controller()   //voir www.ensta-bretagne.fr/jaulin/polyrobots.pdf
     //qDebug()<<"q="<<q<<",   e="<<e;
 }
 
-void Sailboat::clock()  // The model is described in "L. Jaulin Mod�lisation et commande d'un bateau � voile, CIFA2004, Douz (Tunisie)"
+void Sailboat::clock()  // The model is described in "L. Jaulin Modelisation et commande d'un bateau a voile, CIFA2004, Douz (Tunisie)"
 {
     controller();
     double xw_ap=a*cos(psi-theta)-v;
