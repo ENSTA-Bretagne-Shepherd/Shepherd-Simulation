@@ -17,7 +17,7 @@ set(SOURCE
         main.cpp
         sailboat.cpp
         buoy.cpp
-        world.cpp)
+        world.cpp serverToBuoys.cpp serverToBuoys.h)
 
 add_executable(simu.out ${SOURCE})
 target_link_libraries(simu.out "-lSDLmain -lSDL -lGLU -lGL")

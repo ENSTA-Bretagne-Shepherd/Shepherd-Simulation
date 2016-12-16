@@ -20,3 +20,7 @@
 // Buoy
 #define BUOY_MASS 1 // kg
 #define BUOY_VOLUME 1 // m³
+
+// Communication
+#define ADRESS "127.0.0.1"
+#define PORT 3000
