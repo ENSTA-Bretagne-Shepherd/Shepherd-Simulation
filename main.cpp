@@ -25,7 +25,7 @@ compilation:
 g++ *.cpp -lSDLmain -lSDL -lGLU -lGL
 **/
 double dt = 0.2;
-
+double simuTime = 0.0;
 
 int boucle(SDL_Event* event);
 
@@ -85,8 +85,10 @@ int main(int argc, char *argv[])
         
         glPopMatrix(); 
         
-          
+        //Temps interne
+        simuTime += dt;
 
+        //Temps externe
         tempspasse = temps - SDL_GetTicks() + DELAY_FRAME;
         if (tempspasse < 10000)SDL_Delay(tempspasse);
         temps = SDL_GetTicks();

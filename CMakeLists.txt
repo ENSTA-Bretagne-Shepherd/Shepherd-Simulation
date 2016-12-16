@@ -15,7 +15,8 @@ set(CMAKE_CACHEFILE_DIR ${dir})
 set(SOURCE
         main.cpp
         sailboat.cpp
-        widgetsimu.cpp)
+        widgetsimu.cpp
+        buoy.cpp)
 
 
 add_executable(simu.out ${SOURCE})

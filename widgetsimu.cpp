@@ -51,9 +51,9 @@ void WidgetSimu::Clock()
     DrawSailboat(sailboat3);
     DrawSailboat(sailboat4);
 
-//    for (int i = 0; i <nbbouees ; ++i) {
-//        bouees[i].Clock();
-//    }
+    for (int i = 0; i <nbbouees ; ++i) {
+        bouees[i].Clock();
+    }
 }
 
 
@@ -139,7 +139,7 @@ void WidgetSimu::DrawBouees()
 
 void WidgetSimu::DrawSailboat(sailboat const&boat)
 
-{   
+{
 	//*
 	glPushMatrix();
 	glBegin(GL_LINE_LOOP);  //ligne � suivre

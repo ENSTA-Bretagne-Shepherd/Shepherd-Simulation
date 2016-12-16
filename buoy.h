@@ -12,12 +12,13 @@ class Buoy
             double u;
             double Xdot[3];
 
-            void Lorenz(void);
-            void Pendulum(void);
-            void StateEq(void);
-            void SetCommand(double ub);
-            int GetNumber(void);
-            double* GetPos(void);
+            void lorenz(void);
+            void sinLine(void);
+            void pendulum(void);
+            void stateEq(void);
+            void setCommand(double ub);
+            int getNumber(void);
+            double* getPos(void);
             void Clock(void);
             Buoy(int nb, double xb, double yb, double zb, double ub);
             

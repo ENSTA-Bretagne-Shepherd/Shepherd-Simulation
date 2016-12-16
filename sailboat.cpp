@@ -14,8 +14,8 @@ sailboat::sailboat()
     a=2;
     psi=M_PI;  //vent
     eta = 16000;     hv = 4.00;  //Roulis
-    //ax=-1000;ay=-2000,bx=1000;by=2000;   //line with wind
-    //ax=-1000;ay=0,bx=1000;by=0;   //line against wind
+    //ax=-1000;ay=-2000,bx=1000;by=2000;   //sinLine with wind
+    //ax=-1000;ay=0,bx=1000;by=0;   //sinLine against wind
     q=1;
     iseg=0;
 }
@@ -53,7 +53,7 @@ void sailboat::Controller()   //voir www.ensta-bretagne.fr/jaulin/polyrobots.pdf
 
 
 
-void sailboat::Clock()  // The model is described in "L. Jaulin Modélisation et commande d'un bateau à voile, CIFA2004, Douz (Tunisie)"
+void sailboat::Clock()  // The model is described in "L. Jaulin Modï¿½lisation et commande d'un bateau ï¿½ voile, CIFA2004, Douz (Tunisie)"
 {   Controller();
     double xw_ap=a*cos(psi-theta)-v;
     double yw_ap=a*sin(psi-theta);

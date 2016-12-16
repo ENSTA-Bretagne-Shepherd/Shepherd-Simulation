@@ -9,7 +9,7 @@
 #include <string.h>
 
 #include "sailboat.h"
-#include "Buoy.h"
+#include "buoy.h"
 
 class WidgetSimu
 {
