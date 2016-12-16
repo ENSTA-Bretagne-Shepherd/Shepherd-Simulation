@@ -9,23 +9,32 @@ extern double dt;
 extern double simuTime;
 
 Buoy::Buoy(int nb, double xb, double yb, double zb, double ub)
-{    
+{
+    // id
     n = nb;
+
+    // Position
     x = xb;
     y = yb;
     z = zb;
+
+    // Caracteristiques physiques
+
+    // Command
     u = ub;
+
+    // Lorentz variables
+    sigma = 10.0;
+    beta = 8.0/3.0;
+    rho = 28;
+    k = 0.0;
 }
 
 void Buoy::lorenz(void)
 {
-    double sigma = 10.0; 
-    double beta = 8.0/3.0; 
-    double rho = 24.3;
-    double k = 1.0;
-    Xdot[0] = sigma*(y-x);
-    Xdot[1] = x*(rho-z)-y;
-    Xdot[2] = k*(x-y-beta*z)+u;
+    Xdot[0] = sigma*(y-x)*dt;
+    Xdot[1] = (x*(rho-z)-y)*dt;
+    Xdot[2] = (k*(x*y-beta*z)+u);
 }
 
 void Buoy::sinLine(void)
@@ -53,19 +62,15 @@ void Buoy::stateEq(void)
     
 }
 
-
 void Buoy::setCommand(double ub)
 {
     u = ub;
 }
 
-
-
 int Buoy::getNumber(void)
 {
     return n;
 }
-
 
 double* Buoy::getPos(void)
 {
@@ -79,12 +84,15 @@ double* Buoy::getPos(void)
 
 void Buoy::Clock(void)  // The model is described in "L. Jaulin Modélisation et commande d'un bateau à voile, CIFA2004, Douz (Tunisie)"
 {
-    sinLine();
+
+    // On met à jour la position de la bouee
+    // On travaille en dynamique donc pfd m*a = Somme(Forces)
+    lorenz();
     x = x+dt*Xdot[0];
     y = y+dt*Xdot[1];
     z = z+dt*Xdot[2];
 
-    printf("State : %f %f %f \n",x,y,z);
+    printf("State %d : %f %f %f \n",n,x,y,z);
     fflush(stdout);
 }
 

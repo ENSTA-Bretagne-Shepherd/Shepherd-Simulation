@@ -4,23 +4,23 @@
 #include <math.h>
 
 
-class sailboat
+class Sailboat
 {    public:
             double x,y,theta,v,omega,phi,phiPoint; // state variables
             double beta, Jz, rg, rv, alphag, alphav, alphaf, alphatheta, l,m, Jx; //parameters
             double a,psi;  //wind
             double fg,fv,gamma,deltav,deltag,deltavmax;  //link variables
-            double eta;//viscosité
-            double hv; // hauteur de centre de poussée
+            double eta;//viscositï¿½
+            double hv; // hauteur de centre de poussï¿½e
 
             int q;
             double cx,cy;// centre du triangle
             int iseg;// numero du segment
 
-            void Clock();
-            void Controller();
-            explicit sailboat();
-        ~sailboat();
+            void clock();
+            void controller();
+            explicit Sailboat();
+        ~Sailboat();
  };
 
 #endif // sailboat_H

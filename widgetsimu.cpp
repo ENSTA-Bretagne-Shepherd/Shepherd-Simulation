@@ -15,8 +15,7 @@ WidgetSimu::WidgetSimu()
     nbbouees=5;
     int k;
     for(k=0;k<nbbouees;k++){
-    	bouees[k].x=k*10;
-    	//bouees[k].y=k*10;
+        bouees[k] = Buoy(k,10*k,1,10,0);
     }
     
     cx=0;cy=0;
@@ -42,10 +41,10 @@ void WidgetSimu::Clock()
 	sailboat3.cy = cy-100;
 	sailboat4.cx = cx-100;
 	sailboat4.cy = cy-100;
-	sailboat1.Clock();
-	sailboat2.Clock();
-	sailboat3.Clock();
-	sailboat4.Clock();
+    sailboat1.clock();
+    sailboat2.clock();
+    sailboat3.clock();
+    sailboat4.clock();
     DrawSailboat(sailboat1);
     DrawSailboat(sailboat2);
     DrawSailboat(sailboat3);
@@ -137,7 +136,7 @@ void WidgetSimu::DrawBouees()
     }
 }
 
-void WidgetSimu::DrawSailboat(sailboat const&boat)
+void WidgetSimu::DrawSailboat(Sailboat const&boat)
 
 {
 	//*

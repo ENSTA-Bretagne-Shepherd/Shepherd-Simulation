@@ -8,8 +8,8 @@ Buoy: Buoy.cpp
 	g++ -Wall -o Buoy Buoy.cpp
 
 
-sailboat: sailboat.cpp
-	g++ -Wall -o sailboat sailboat.cpp
+Sailboat: Sailboat.cpp
+	g++ -Wall -o Sailboat Sailboat.cpp
 
 clean: 
 	rm -f *~

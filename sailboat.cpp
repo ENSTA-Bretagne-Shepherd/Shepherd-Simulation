@@ -6,7 +6,7 @@
 extern double dt;
 
 
-sailboat::sailboat()
+Sailboat::Sailboat()
 {   x=0.0; y=0.0; theta =-3.0; v = 1; omega = 0.0;  phi = 0.5; phiPoint = 0;
     Jx = 3000.0; Jz = 10000.0; // moments d'inertie
     beta=0.1;  rg=2.0;  alphatheta=6000;  m=300.0;
@@ -21,14 +21,14 @@ sailboat::sailboat()
 }
 
 
-sailboat::~sailboat()
+Sailboat::~Sailboat()
 {
 }
 
 double sign(double a)
 {if (a>0) return 1; else return -1;};
 
-void sailboat::Controller()   //voir www.ensta-bretagne.fr/jaulin/polyrobots.pdf
+void Sailboat::controller()   //voir www.ensta-bretagne.fr/jaulin/polyrobots.pdf
 {   double r=10;
     double zeta=M_PI/4;
     double ax,bx,ay,by;
@@ -53,8 +53,9 @@ void sailboat::Controller()   //voir www.ensta-bretagne.fr/jaulin/polyrobots.pdf
 
 
 
-void sailboat::Clock()  // The model is described in "L. Jaulin Mod�lisation et commande d'un bateau � voile, CIFA2004, Douz (Tunisie)"
-{   Controller();
+void Sailboat::clock()  // The model is described in "L. Jaulin Mod�lisation et commande d'un bateau � voile, CIFA2004, Douz (Tunisie)"
+{
+    controller();
     double xw_ap=a*cos(psi-theta)-v;
     double yw_ap=a*sin(psi-theta);
     double psi_ap=atan2(yw_ap,xw_ap);   //Apparent wind

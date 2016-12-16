@@ -27,16 +27,16 @@ public:
 
     void DrawMer();
     void DrawBouees();
-    void DrawSailboat(sailboat const&boat);
+    void DrawSailboat(Sailboat const&boat);
     int xCam,yCam,zCam;
     float Zoom;
 
-    sailboat sailboat1;
-    sailboat sailboat2;
-    sailboat sailboat3;
-    sailboat sailboat4;
+    Sailboat sailboat1;
+    Sailboat sailboat2;
+    Sailboat sailboat3;
+    Sailboat sailboat4;
     
-    Buoy  bouees[50];
+    Buoy bouees[50];
     int nbbouees;
     
     double cx,cy;
