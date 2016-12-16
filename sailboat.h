@@ -3,6 +3,9 @@
 
 #include <math.h>
 
+#include <GL/gl.h>
+#include <GL/glu.h>
+
 #pragma once
 
 /**
@@ -10,7 +13,15 @@
  */
 class Sailboat
 {    public:
-            double x,y,theta,v,omega,phi,phiPoint; // state variables
+            // Variables d'etat
+            double x; //!state variable
+            double y; //!state variable
+            double theta; //!state variable
+            double v; //!state variable
+            double omega; //!state variable
+            double phi; //!state variable
+            double phiPoint; //!state variable
+
             double beta, Jz, rg, rv, alphag, alphav, alphaf, alphatheta, l,m, Jx; //parameters
             double a,psi;  //wind
             double fg,fv,gamma,deltav,deltag,deltavmax;  //link variables
@@ -25,6 +36,6 @@ class Sailboat
             void controller();
             explicit Sailboat();
         ~Sailboat();
- };
+};
 
 #endif // sailboat_H

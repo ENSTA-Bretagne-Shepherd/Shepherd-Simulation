@@ -12,6 +12,8 @@
 // World
 #define DT 0.2 // s
 #define GRAV_CONST 9.81 // m/s²
+#define BOAT_NUMBER 4
+#define BUOY_NUMBER 5
 
 // Buoy
 #define BUOY_MASS 1 // kg
