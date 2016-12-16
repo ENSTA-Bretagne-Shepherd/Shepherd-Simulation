@@ -14,6 +14,8 @@
 #define GRAV_CONST 9.81 // m/s²
 #define BOAT_NUMBER 4
 #define BUOY_NUMBER 5
+#define X_BOAT_TARGET {100,-100, 100,-100}
+#define Y_BOAT_TARGET {100, 100,-100,-100}
 
 // Buoy
 #define BUOY_MASS 1 // kg

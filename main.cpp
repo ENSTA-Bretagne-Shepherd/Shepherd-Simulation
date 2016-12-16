@@ -7,12 +7,8 @@
 #include "config.h"
 
 double dt = DT;
-double simuTime = 0.0;
-
 
 int boucle(){
-
-
 
 
 
@@ -25,12 +21,15 @@ int main(int argc, char *argv[])
 
     // Objects creation
     World env = World(4,5);
-
+    env.initialize();
 
     while (boucle()==EXIT_SUCCESS)
     {
+        //Fait avancer la simulation
+        env.clock();
+
         //Temps interne
-        simuTime += dt;
+        env.simuTime += dt;
         usleep(50);
     }
 

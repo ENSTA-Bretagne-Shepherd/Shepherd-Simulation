@@ -2,11 +2,7 @@
 #include "buoy.h"
 #include <stdio.h>
 
-#include <GL/gl.h>
-#include <GL/glu.h>
-
 extern double dt;
-extern double simuTime;
 
 Buoy::Buoy(int nb, double xb, double yb, double zb, double ub)
 {
@@ -39,7 +35,7 @@ void Buoy::lorenz(void)
     Xdot[2] = (k*(x*y-beta*z)+u);
 }
 
-void Buoy::sinLine(void)
+void Buoy::sinLine(double simuTime)
 {
     double depth = 40; // m
     double freq = 0.05; // Hz
@@ -84,9 +80,8 @@ double* Buoy::getPos(void)
     return xd;
 }
 
-void Buoy::Clock(void)  // The model is described in "L. Jaulin Modélisation et commande d'un bateau à voile, CIFA2004, Douz (Tunisie)"
+void Buoy::clock(void)  // The model is described in "L. Jaulin Modélisation et commande d'un bateau à voile, CIFA2004, Douz (Tunisie)"
 {
-
     // On met à jour la position de la bouee
     // On travaille en dynamique donc pfd m*a = Somme(Forces)
     lorenz();

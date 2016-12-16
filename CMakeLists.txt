@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.3)
 project(Shepherd-Simulation)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(dir ${CMAKE_CURRENT_SOURCE_DIR}/build/)
 set(EXECUTABLE_OUTPUT_PATH ${dir} CACHE PATH "Build directory" FORCE)
@@ -15,8 +16,8 @@ set(CMAKE_CACHEFILE_DIR ${dir})
 set(SOURCE
         main.cpp
         sailboat.cpp
-        widgetsimu.cpp
-        buoy.cpp world.cpp world.h)
+        buoy.cpp
+        world.cpp)
 
 add_executable(simu.out ${SOURCE})
 target_link_libraries(simu.out "-lSDLmain -lSDL -lGLU -lGL")

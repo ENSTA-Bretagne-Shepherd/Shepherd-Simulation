@@ -36,7 +36,7 @@ class Buoy
         /**
          * Equations cinematiques simple pour une oscillation verticale
          */
-        void sinLine(void);
+        void sinLine(double simuTime);
         void pendulum(void);
         void stateEq(void);
 
@@ -52,7 +52,7 @@ class Buoy
          */
         int getNumber(void);
         double* getPos(void);
-        void Clock(void);
+        void clock(void);
 
         /**
          * Constructeur de la bouee

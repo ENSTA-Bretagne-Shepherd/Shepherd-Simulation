@@ -32,9 +32,10 @@ class Sailboat
             double cx,cy;// centre du triangle
             int iseg;// numero du segment
 
+            void setTargetTriangle(double cx, double cy);
             void clock();
             void controller();
-            explicit Sailboat();
+            explicit Sailboat(double x,double y);
         ~Sailboat();
 };
 

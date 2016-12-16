@@ -2,8 +2,10 @@
 
 extern double dt;
 
-Sailboat::Sailboat()
-{   x=0.0; y=0.0; theta =-3.0; v = 1; omega = 0.0;  phi = 0.5; phiPoint = 0;
+Sailboat::Sailboat(double x,double y)
+{   this->x=x;
+    this->y=y;
+    theta =-3.0; v = 1; omega = 0.0;  phi = 0.5; phiPoint = 0;
     Jx = 3000.0; Jz = 10000.0; // moments d'inertie
     beta=0.1;  rg=2.0;  alphatheta=6000;  m=300.0;
     alphaf=1.0;  rv=1.0;  alphag=2000.0; l=1.0;  alphav=1000.0;
@@ -18,6 +20,12 @@ Sailboat::Sailboat()
 
 Sailboat::~Sailboat()
 {
+}
+
+void Sailboat::setTargetTriangle(double cx, double cy)
+{
+    this->cx = cx;
+    this->cy = cy;
 }
 
 double sign(double a)
@@ -65,5 +73,4 @@ void Sailboat::clock()  // The model is described in "L. Jaulin Modelisation et 
     phiPoint += (-phiPoint+fv*hv*cos(deltav)*cos(phi)/Jx - 10000*9.81*sin(phi)/Jx)*dt ;
     phi += phiPoint * dt;
 }
-
 
