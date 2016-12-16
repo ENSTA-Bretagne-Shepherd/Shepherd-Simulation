@@ -2,7 +2,6 @@
 
 extern double dt;
 
-
 Sailboat::Sailboat()
 {   x=0.0; y=0.0; theta =-3.0; v = 1; omega = 0.0;  phi = 0.5; phiPoint = 0;
     Jx = 3000.0; Jz = 10000.0; // moments d'inertie

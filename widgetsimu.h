@@ -11,6 +11,8 @@
 #include "sailboat.h"
 #include "buoy.h"
 
+#pragma once
+
 class WidgetSimu
 {
 public:

@@ -3,6 +3,8 @@
 
 #include <math.h>
 
+#pragma once
+
 /**
  * Classe bu bateau
  */

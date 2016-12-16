@@ -8,7 +8,7 @@
 
 #include "sailboat.h"
 #include "widgetsimu.h"
-
+#include "config.h"
 
 #define LARGEUR_FENETRE 900
 #define HAUTEUR_FENETRE 700
@@ -24,7 +24,7 @@
 compilation: 
 g++ *.cpp -lSDLmain -lSDL -lGLU -lGL
 **/
-double dt = 0.2;
+double dt = DT;
 double simuTime = 0.0;
 
 int boucle(SDL_Event* event);
