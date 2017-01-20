@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
         //Temps interne
         env.simuTime += dt;
         usleep(500);
+        printf("\ntime : %f \n",env.simuTime);
     }
 
     return 0;
