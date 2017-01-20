@@ -17,13 +17,17 @@ set(CMAKE_CACHEFILE_DIR ${dir})
 #        serverToBuoys.cpp
 #        serverToBuoys.h)
 
+set(SOURCE_UNITY unity-api/unityapi.cpp unity-api/unityapi.h)
+
 set(SOURCE
         main.cpp
         sailboat.cpp
         buoy.cpp
         world.cpp
         networktools.cpp
-        ${SOURCE_SERVER})
+        ${SOURCE_SERVER}
+        ${SOURCE_UNITY}
+        )
 
 set(SOURCE_SDL
 	client.c)
