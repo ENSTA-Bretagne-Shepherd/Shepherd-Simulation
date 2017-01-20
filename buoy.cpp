@@ -16,18 +16,20 @@ Buoy::Buoy(int nb, double xb, double yb, double zb, double ub)
     y = yb;
     z = zb;
 
-    // Caracteristiques physiques
-    mvol = BUOY_MASS/BUOY_VOLUME; //kg/m³
-
     // Command
-    u = ub;
+    //volBal = ub;
+    //volBal = BUOY_CONTROL;
+    volBal = ub;
+
+    // Caracteristiques physiques
+    mvol = BUOY_MASS/(BUOY_VOLUME-volBal); //kg/m³
 
     // Lorentz variables
     sigma = 10.0;
     beta = 8.0/3.0;
     rho = 28;
     k = 0.0;
-    delta = mvol/1.025; //delta = rapport de la masse volumique de l'eau sur celui de la bouee
+    delta = mvol/RHO_SALT_WATER; //delta = rapport de la masse volumique de l'eau sur celui de la bouee
     mu = 1.0; //coefficient de resistance de Stokes
     theta = 10;
 }
@@ -36,7 +38,7 @@ void Buoy::lorenz(void)
 {
     Xdot[0] = sigma*(y-x)*dt;
     Xdot[1] = (x*(rho-z)-y)*dt;
-    Xdot[2] = (k*(x*y-beta*z)+u);
+    Xdot[2] = (k*(x*y-beta*z));//attention au terme de commande
 }
 
 void Buoy::sinLine(void)
@@ -54,14 +56,14 @@ void Buoy::pendulum(void)
 {
     Xdot[0] = y;
     Xdot[1] = -sin(x);
-    Xdot[2] = u;
+    Xdot[2] = volBal;
 }
 
 void Buoy::stateEq(void)
 {
     Xdot[0] = sin(0.001*(y+0.9*z));
     Xdot[1] = -sin(0.001*(x+z));
-    Xdot[2] = u;
+    Xdot[2] = volBal;
 
 }
 
@@ -78,10 +80,11 @@ void Buoy::vortex(void)
     eqParticule();
     Dx = -4*sin(x)*cos(y);
     Dy = 4*sin(y)*cos(x);
+    mvol = BUOY_MASS/(BUOY_VOLUME-volBal);
+    delta = mvol/RHO_SALT_WATER;
     Xdot2[0] = delta * Dx - mu * (Xdot[0] - vx);
     Xdot2[1] = Dy - mu * (Xdot[1] - vy);
-    Xdot2[2] = u;
-    //printf(" bouee %d : Dx : %f accx : %f        ",n,Dx,Xdot2[0]);
+    Xdot2[2] = (BUOY_MASS-(BUOY_VOLUME-volBal)*RHO_SALT_WATER)*GRAV_CONST;
 }
 
 void Buoy::rotation(void)
@@ -96,7 +99,7 @@ void Buoy::rotation(void)
 
 void Buoy::setCommand(double ub)
 {
-    u = ub;
+    volBal = ub;
 }
 
 int Buoy::getNumber(void)
@@ -129,6 +132,7 @@ void Buoy::clock(void)  // The model is described in "L. Jaulin Modélisation et
     y = y+dt*Xdot[1];
     z = z+dt*Xdot[2];
 
+    printf("Buoy acc : %f speed : %f \n",Xdot2[0],Xdot[0]);
     printf("Buoy state %d : %f %f %f \n",n,x,y,z);
     fflush(stdout);
 }

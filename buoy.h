@@ -24,7 +24,7 @@ public:
 
     int n;//!Id de la bouee
 
-    double u;//!Commande
+    double volBal;//!Commande
     double Xdot[3];//!Vecteur de vitesse de Buoy
     double Xdot2[3];//!Vecteur acceleration de Buoy
     double vx;//!composante du vecteur vitesse d'une particule dans un courant selon la direction x
