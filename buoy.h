@@ -5,16 +5,32 @@
 
 #pragma once
 
+class Buoy0
+{
+    public:
+        double x;//!State variables
+        double y;//!State variables
+        double z;//!State variables        
+        double Xdot[3];//!Vecteur de vitesse de Buoy
+        
+        int n;        
+        
+        inline Buoy0(int nb, double xb, double yb, double zb, double ub){
+    		n = nb;
+    		x = xb;
+    		y = yb;
+    		z = zb;    
+		}
+
+    inline Buoy0 (){x=0;y=0;z=-10;Xdot[0]=0;Xdot[1]=0;Xdot[2]=0;}
+ };
+
 /**
  * Classe Buoy : la bouee
  */
-class Buoy
+class Buoy : public Buoy0
 {
 public:
-    double x;//!State variables
-    double y;//!State variables
-    double z;//!State variables
-
     double mvol;//!Masse volumique de Buoy
     double rho_w;//!Masse volumique de l'eau salée
 
@@ -23,10 +39,8 @@ public:
     double rho;//!Parameter for Lorentz
     double k;//!Parameter for Lorentz
 
-    int n;//!Id de la bouee
 
     double volBal;//!Commande
-    double Xdot[3];//!Vecteur de vitesse de Buoy
     double Xdot2[3];//!Vecteur acceleration de Buoy
     double vx;//!composante du vecteur vitesse d'une particule dans un courant selon la direction x
     double vy;//!composante du vecteur vitesse d'une particule dans un courant selon la direction x
