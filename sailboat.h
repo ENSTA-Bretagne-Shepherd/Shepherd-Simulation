@@ -14,6 +14,7 @@
 class Sailboat
 {    public:
             // Variables d'etat
+            int n; //!state variable
             double x; //!state variable
             double y; //!state variable
             double theta; //!state variable
@@ -35,7 +36,7 @@ class Sailboat
             void setTargetTriangle(double cx, double cy);
             void clock();
             void controller();
-            explicit Sailboat(double x,double y);
+            explicit Sailboat(int n,double x,double y);
         ~Sailboat();
 };
 

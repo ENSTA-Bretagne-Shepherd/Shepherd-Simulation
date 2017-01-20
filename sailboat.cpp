@@ -3,8 +3,9 @@
 
 extern double dt;
 
-Sailboat::Sailboat(double x,double y)
-{   this->x=x;
+Sailboat::Sailboat(int n, double x,double y)
+{   this->n=n;
+    this->x=x;
     this->y=y;
     theta =-3.0; v = 1; omega = 0.0;  phi = 0.5; phiPoint = 0;
     Jx = 3000.0; Jz = 10000.0; // moments d'inertie
@@ -73,6 +74,6 @@ void Sailboat::clock()  // The model is described in "L. Jaulin Modelisation et 
     v     += (1/m)*(sin(deltav)*fv-sin(deltag)*fg-alphaf*v*v)*dt;
     phiPoint += (-phiPoint+fv*hv*cos(deltav)*cos(phi)/Jx - 10000*9.81*sin(phi)/Jx)*dt ;
     phi += phiPoint * dt;
-    printf("Sailboat State : x : %f, y : %f, v : %f, theta : %f, omega : %f \n",x,y,v,theta,omega);
+    printf("Sailboat State %d : x : %f, y : %f, v : %f, theta : %f, omega : %f \n",n,x,y,v,theta,omega);
 }
 

@@ -13,7 +13,7 @@ World::World(int sailboat, int buoy) {
     for (int i = 0; i < BOAT_NUMBER; ++i) {
         const double x = 0;
         const double y = 0;
-        vec_sailboat.push_back(Sailboat(x,y));
+        vec_sailboat.push_back(Sailboat(i+1,x,y));
     }
 
     // Buoy creation
@@ -25,7 +25,7 @@ World::World(int sailboat, int buoy) {
         double y = 0;
         double z = 0;
         const double u = 0;
-        vec_buoy.push_back(Buoy(i,x,y,z,u));
+        vec_buoy.push_back(Buoy(i+1,x,y,z,u));
     }
 }
 
