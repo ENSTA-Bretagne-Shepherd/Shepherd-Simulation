@@ -16,6 +16,7 @@ public:
     double z;//!State variables
 
     double mvol;//!Masse volumique de Buoy
+    double rho_w;//!Masse volumique de l'eau salée
 
     double beta;//!Parameter for Lorentz
     double sigma;//!Parameter for Lorentz

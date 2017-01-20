@@ -21,8 +21,8 @@ World::World(int sailboat, int buoy) {
         //vec_buoy.push_back(Buoy(
 
         //));
-        double x = 0;
-        double y = 0;
+        double x = 10;
+        double y = 7.40;
         double z = 0;
         const double u = 0;
         vec_buoy.push_back(Buoy(i+1,x,y,z,u));
