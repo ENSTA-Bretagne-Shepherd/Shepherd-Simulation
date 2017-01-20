@@ -36,10 +36,6 @@ int init_connection( char *port)
 {
     
      
-     if (argc < 2) {
-         fprintf(stderr,"ERROR, no port provided\n");
-         exit(1);
-     }
      portno = atoi(port);
 	
 	 sockfd = socket(AF_INET, SOCK_STREAM, 0);
