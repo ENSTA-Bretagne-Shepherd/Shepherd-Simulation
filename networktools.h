@@ -4,7 +4,7 @@
 
 #pragma once
 
-int init_connection(int argc, char *argv[]);
+int init_connection( char *port);
 
 char* wait_connection(char *reponse, int longueur);
 void close_connection();
