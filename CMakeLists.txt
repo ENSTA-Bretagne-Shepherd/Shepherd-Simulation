@@ -17,12 +17,16 @@ set(CMAKE_CACHEFILE_DIR ${dir})
 #        serverToBuoys.cpp
 #        serverToBuoys.h)
 
+set(SOURCE_UNITY unity-api/unityapi.cpp unity-api/unityapi.h)
+
 set(SOURCE
         main.cpp
         sailboat.cpp
         buoy.cpp
         world.cpp
-        ${SOURCE_SERVER})
+        ${SOURCE_SERVER}
+        ${SOURCE_UNITY}
+        )
 
 add_executable(simu.out ${SOURCE})
 #target_link_libraries(simu.out "-lSDLmain -lSDL -lGLU -lGL")
