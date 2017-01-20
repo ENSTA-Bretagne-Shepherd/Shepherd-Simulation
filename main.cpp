@@ -5,7 +5,7 @@
 
 #include "world.h"
 #include "config.h"
-#include "serverToBuoys.h"
+//#include "serverToBuoys.h"
 
 double dt = DT;
 
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 
         //Temps interne
         env.simuTime += dt;
-        usleep(50);
+        usleep(500);
     }
 
     return 0;

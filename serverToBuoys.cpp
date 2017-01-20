@@ -129,3 +129,4 @@ void *task1 (void *dummyPt)
     std::cout << "\nClosing thread and conn" << std::endl;
     close(connFd);
 }
+

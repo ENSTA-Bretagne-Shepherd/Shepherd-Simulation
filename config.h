@@ -18,8 +18,8 @@
 #define Y_BOAT_TARGET {100, 100,-100,-100}
 
 // Buoy
-#define BUOY_MASS 1 // kg
-#define BUOY_VOLUME 1 // m³
+#define BUOY_MASS 10.25 // kg
+#define BUOY_VOLUME 10 // m³
 
 // Communication
 #define ADRESS "127.0.0.1"

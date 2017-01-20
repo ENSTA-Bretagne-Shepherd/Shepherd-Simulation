@@ -89,7 +89,7 @@ void Buoy::clock(void)  // The model is described in "L. Jaulin Modélisation et
     y = y+dt*Xdot[1];
     z = z+dt*Xdot[2];
 
-    printf("State %d : %f %f %f \n",n,x,y,z);
+    printf("Buoy State %d : x : %f, y : %f, z : %f \n",n,x,y,z);
     fflush(stdout);
 }
 

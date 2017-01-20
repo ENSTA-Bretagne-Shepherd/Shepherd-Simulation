@@ -13,9 +13,9 @@ set(EXECUTABLE_OUTPUT_PATH ${dir})
 set(LIBRARY_OUTPUT_PATH ${dir}lib)
 set(CMAKE_CACHEFILE_DIR ${dir})
 
-set(SOURCE_SERVER
-        serverToBuoys.cpp
-        serverToBuoys.h)
+#set(SOURCE_SERVER
+#        serverToBuoys.cpp
+#        serverToBuoys.h)
 
 set(SOURCE
         main.cpp
@@ -25,4 +25,4 @@ set(SOURCE
         ${SOURCE_SERVER})
 
 add_executable(simu.out ${SOURCE})
-target_link_libraries(simu.out "-lSDLmain -lSDL -lGLU -lGL")
+#target_link_libraries(simu.out "-lSDLmain -lSDL -lGLU -lGL")

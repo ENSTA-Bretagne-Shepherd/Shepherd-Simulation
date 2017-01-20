@@ -18,9 +18,14 @@ World::World(int sailboat, int buoy) {
 
     // Buoy creation
     for (int i = 0; i < BUOY_NUMBER; ++i) {
-        vec_buoy.push_back(Buoy(
+        //vec_buoy.push_back(Buoy(
 
-        ));
+        //));
+        double x = 0;
+        double y = 0;
+        double z = 0;
+        const double u = 0;
+        vec_buoy.push_back(Buoy(i,x,y,z,u));
     }
 }
 
