@@ -22,7 +22,13 @@ set(SOURCE
         sailboat.cpp
         buoy.cpp
         world.cpp
+        networktools.cpp
         ${SOURCE_SERVER})
 
+set(SOURCE_SDL
+	client.c)
+
 add_executable(simu.out ${SOURCE})
+
+add_executable(client.out ${SOURCE_SDL})
 #target_link_libraries(simu.out "-lSDLmain -lSDL -lGLU -lGL")
