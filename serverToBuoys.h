@@ -8,13 +8,17 @@
 #include <vector>
 #include <map>
 
+class Params; // Forward declaration of Params
+
 class ServerToBuoys
 {
 public:
-    ServerToBuoys(const char* address, int port);
+    ServerToBuoys();
     ~ServerToBuoys();
 private:
     int sock;
+    void sigchld_handler(int s);
+    void *get_in_addr(struct sockaddr *sa);
     void sendParams(Params params);
 };
 

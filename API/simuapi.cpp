@@ -56,9 +56,32 @@ void DisplayAPI::sendParams(Params params){
         printf("Error while writing to socket.\n");
 }
 
-void DisplayAPI::setPosition(std::string auvname, double x, double y, double theta){
+//void DisplayAPI::setPosition(std::string auvname, double x, double y, double theta){
+//
+//}
 
-}
+/* Envoyé à un temps t prédéfinis
+message : pingPositionBateau
+id : (int)
+xMax : (double)
+xMin : (double)
+yMax : (double)
+yMin : (double)
+zMax : (double)
+zMin : (double)
+distanceEmissionMin : (double) //m
+distanceEmissionMax : (double) */
+
+/* message : capteurPositionBouee
+id : (int)
+z : (double) //m de profondeur */
+
+/* message : positionBouee
+id : (int)
+xMin : (double)
+xMax : (double)
+yMin : (double)
+yMax : (double) */
 
 std::string Value::toJSONString() const {
         std::ostringstream ss;

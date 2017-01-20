@@ -27,7 +27,8 @@ int main(int argc, char *argv[])
     {
 
         // Server init
-        ServerToBuoys(ADRESS,PORT);
+        //ServerToBuoys();
+//        GraphInterface(ADRESS,PORT)
         //listen TODO
 
         //Fait avancer la simulation

@@ -1,102 +1,131 @@
-//
-// Created by tag on 16/12/16.
-//
+/*
+** server.c -- a stream socket server demo
+*/
 
-#include <sys/socket.h>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <netdb.h>
-#include <sstream>
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include <errno.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <sys/wait.h>
+#include <signal.h>
+#include <iostream>
 #include "serverToBuoys.h"
+#include "config.h"
 
-ServerToBuoys::ServerToBuoys(const char* peerHost, int peerPort)
+
+//
+
+void *task1(void *);
+
+static int connFd;
+
+int main(int argc, char* argv[])
 {
-    // Create
-    sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (sock < 0) {
-        perror("Cannot create a socket"); exit(1);
+    int pId, portNo, listenFd;
+    socklen_t len; //store size of the address
+    bool loop = false;
+    struct sockaddr_in svrAdd, clntAdd;
+
+    pthread_t threadA[3];
+
+    if (argc < 2)
+    {
+        std::cerr << "Syntam : ./server <port>" << std::endl;
+        return 0;
     }
 
-    // Fill in the address of server
-    struct sockaddr_in peeraddr;
-    int peeraddr_len;
-    memset(&peeraddr, 0, sizeof(peeraddr));
+    portNo = atoi(argv[1]);
 
-
-    // Resolve the server address (convert from symbolic name to IP number)
-    struct hostent *host = gethostbyname(peerHost);
-    if (host == NULL) {
-        perror("Cannot define host address"); exit(1);
+    if((portNo > 65535) || (portNo < 2000))
+    {
+        std::cerr << "Please enter a port number between 2000 - 65535" << std::endl;
+        return 0;
     }
-    peeraddr.sin_family = AF_INET;
-    peeraddr.sin_port = htons((uint16_t) peerPort);
 
-    // Write resolved IP address of a server to the address structure
-    memmove(&(peeraddr.sin_addr.s_addr), host->h_addr_list[0], 4);
+    //create socket
+    listenFd = socket(AF_INET, SOCK_STREAM, 0);
 
-    // Connect to a remote server
-    int res = connect(sock, (struct sockaddr*) &peeraddr, sizeof(peeraddr));
-    if (res < 0) {
-        perror("Cannot connect"); exit(1);
+    if(listenFd < 0)
+    {
+        std::cerr << "Cannot open socket" << std::endl;
+        return 0;
     }
-    printf("Connected. Reading a server message.\n");
+
+    bzero((char*) &svrAdd, sizeof(svrAdd));
+
+    svrAdd.sin_family = AF_INET;
+    svrAdd.sin_addr.s_addr = INADDR_ANY;
+    svrAdd.sin_port = htons(portNo);
+
+    //bind socket
+    if(bind(listenFd, (struct sockaddr *)&svrAdd, sizeof(svrAdd)) < 0)
+    {
+        std::cerr << "Cannot bind" << std::endl;
+        return 0;
+    }
+
+    listen(listenFd, 5);
+
+    len = sizeof(clntAdd);
+
+    int noThread = 0;
+
+    while (noThread < 3)
+    {
+        std::cout << "Listening" << std::endl;
+
+        //this is where client connects. svr will hang in this mode until client conn
+        connFd = accept(listenFd, (struct sockaddr *)&clntAdd, &len);
+
+        if (connFd < 0)
+        {
+            std::cerr << "Cannot accept connection" << std::endl;
+            return 0;
+        }
+        else
+        {
+            std::cout << "Connection successful" << std::endl;
+        }
+
+        pthread_create(&threadA[noThread], NULL, task1, NULL);
+
+        noThread++;
+    }
+
+    for(int i = 0; i < 3; i++)
+    {
+        pthread_join(threadA[i], NULL);
+    }
+
+
 }
 
-ServerToBuoys::~ServerToBuoys() {
-    close(sock);
-}
+void *task1 (void *dummyPt)
+{
+    std::cout << "Thread No: " << pthread_self() << std::endl;
+    char test[300];
+    bzero(test, 301);
+    bool loop = false;
+    while(!loop)
+    {
+        bzero(test, 301);
 
-void ServerToBuoys::sendParams(Params params){
-    std::string msg = Value(params).toJSONString().append("\n");
 
-    int n = static_cast<int>(write(sock, msg.c_str(), msg.size()));
-    if(n < 0)
-        printf("Error while writing to socket.\n");
-}
+        read(connFd, test, 300);
 
-std::string Value::toJSONString() const {
-    std::ostringstream ss;
-    switch (_type) {
-        case vt_integer:
-            ss<<_integer; break;
-        case vt_decimal:
-            ss<<_decimal; break;
-        case vt_string:
-            ss<<'"'<<_string<<'"'; break;
-        case vt_array:
-            ss << '[';
-            for (std::vector<Value>::const_iterator it = _array.begin(); it != _array.end(); ++it) {
-                if (it != _array.begin()) ss << ',';
-                ss << it->toJSONString();
-            }
-            ss << ']';
+        std::string tester (test);
+        std::cout << tester << std::endl;
+
+
+        if(tester == "exit")
             break;
-        case vt_object:
-            ss << '{' << _object->toJSON() << '}';
-            break;
-        case vt_none:
-        default:
-            break;
     }
-    return ss.str();
+    std::cout << "\nClosing thread and conn" << std::endl;
+    close(connFd);
 }
-
-    std::string Params::toJSON() const {
-        std::ostringstream ss;
-        for(std::map<std::string, Value>::const_iterator it = _values.begin(); it != _values.end(); ++it)
-            ss << (it==_values.begin()?"":", ") << "\"" << it->first << "\":" << it->second.toJSONString();
-        return ss.str();
-    }
-
-    Value Params::pop(const std::string &key, const Value &value_not_found) {
-        KeyValueMap::iterator it = _values.find(key);
-        // Return empty value if not found
-        if (it == _values.end())
-            return value_not_found;
-        // Otherwise, return corresponding value and remove it from map
-        Value val = it->second;
-        _values.erase(it);
-        return val;
-    }
