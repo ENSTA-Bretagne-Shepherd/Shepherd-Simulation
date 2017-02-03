@@ -29,7 +29,7 @@ class Buoy0
 		}
 
     inline Buoy0 (){x=0;y=0;z=-10;Xdot[0]=0;Xdot[1]=0;Xdot[2]=0;}
- };
+};
  
  
  class Sailboat0
@@ -43,10 +43,21 @@ class Buoy0
             
             
             double cx,cy;// centre du triangle
- };
+};
+ 
+class Flow
+{
+public:
+	float x,y,z;
+	float vx,vy,vz;
+};
 
 
 void DrawMer();
+
+void DrawMesh();
+
+void DrawCourant(Flow const&courant);
 
 void DrawBouees(Buoy0 const&boue);
 

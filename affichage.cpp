@@ -32,8 +32,35 @@ void DrawMer()
 	//glDisable(GL_BLEND);
 }
 
-void DrawBouees(Buoy0 const&boue)
-{   
+void DrawMesh()
+{       
+	//glEnable(GL_BLEND);
+	//glDisable(GL_DEPTH_TEST);
+		glBegin(GL_LINES);
+		int k,j;
+		glColor3f(0.6,0.6,0.6);
+		for(k=-10;k<10;k++){
+           		
+           	glVertex3f(k*1000,10000,1);
+           	glVertex3f(k*1000,-10000,1);
+           		
+           	glVertex3f(10000,k*1000,1);
+           	glVertex3f(-10000,k*1000,1); 
+           	
+           	
+           	glVertex3f(k*1000,10000,-500);
+           	glVertex3f(k*1000,-10000,-500);
+           		
+           	glVertex3f(10000,k*1000,-500);
+           	glVertex3f(-10000,k*1000,-500);        
+        }
+        
+        glEnd();
+    //glEnable(GL_DEPTH_TEST);
+	//glDisable(GL_BLEND);
+}
+
+void DrawBouees(Buoy0 const&boue){   
     	glPushMatrix();
     	
     	glTranslatef(boue.x,boue.y, boue.z);
@@ -43,6 +70,11 @@ void DrawBouees(Buoy0 const&boue)
         gluSphere(q,1.0,10,10);
         
         glPopMatrix();
+}
+
+void DrawCourant( Flow const&courant){
+	glVertex3f(courant.x,courant.y,courant.z);
+	glVertex3f(courant.x + courant.vx, courant.y + courant.vy, courant.z + courant.vz);
 }
 
 void DrawSailboat(Sailboat0 const&boat)
