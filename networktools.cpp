@@ -32,22 +32,19 @@ int tour=0;
 
 
 
-int init_connection(int argc, char *argv[])
+int init_connection( char *port)
 {
     
      
-     if (argc < 2) {
-         fprintf(stderr,"ERROR, no port provided\n");
-         exit(1);
-     }
-     portno = atoi(argv[1]);
+     portno = atoi(port);
 	
 	 sockfd = socket(AF_INET, SOCK_STREAM, 0);
      if (sockfd < 0) 
          error("ERROR opening\n");
-         
-     //if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (int *)0 +1, sizeof(int)) < 0)
-     //	error("setsockopt(SO_REUSEADDR) failed");
+     int reuse=1;
+     if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(int)) < 0)
+     	error("setsockopt(SO_REUSEADDR) failed");
+     	
      bzero((char *) &serv_addr, sizeof(serv_addr));
      
      serv_addr.sin_family = AF_INET;
@@ -91,5 +88,6 @@ char* wait_connection(char *reponse, int longueur){
 }
      
 void close_connection(){
-     close(sockfd);
+	close(newsockfd);
+    close(sockfd);     
 }

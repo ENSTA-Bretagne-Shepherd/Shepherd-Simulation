@@ -30,9 +30,12 @@ set(SOURCE
         )
 
 set(SOURCE_SDL
-	client.c)
+	client.cpp
+	affichage.cpp
+	openglmain.cpp)
 
 add_executable(simu.out ${SOURCE})
 
 add_executable(client.out ${SOURCE_SDL})
-#target_link_libraries(simu.out "-lSDLmain -lSDL -lGLU -lGL")
+target_link_libraries(client.out "-lSDLmain -lSDL -lGLU -lGL")
+
