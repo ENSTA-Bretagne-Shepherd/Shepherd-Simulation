@@ -3,6 +3,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <sstream>
+#include <signal.h>
 
 #include "world.h"
 #include "config.h"
@@ -13,18 +14,17 @@
 
 double dt = DT;
 
-int boucle(){
+void sig_handler(int signo);
 
-
-
-    return EXIT_SUCCESS;
-}
 
 char message[1024];
 
 int main(int argc, char *argv[])
 {
     printf("SIMULATION STARTED\n");
+    
+    if (signal(SIGINT, sig_handler) == SIG_ERR)
+  		printf("\ncan't catch SIGINT\n");
 
     // Objects creation
     World env = World(4,5);
@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
          init_connection(argv[1]);
     }
 
-    while (boucle()==EXIT_SUCCESS)
+    while (1)
     {
 
         // Server init
@@ -84,8 +84,19 @@ int main(int argc, char *argv[])
         usleep(50000);
         printf("\ntime : %f \n",env.simuTime);
     }
+    
 
     return 0;
+}
+
+
+void sig_handler(int signo)
+{
+  if (signo == SIGINT){
+    	printf("received SIGINT\n");
+    	close_connection();
+    	exit(0);
+    }
 }
 
 

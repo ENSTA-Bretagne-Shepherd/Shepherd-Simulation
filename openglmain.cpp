@@ -38,6 +38,8 @@ int boucle(SDL_Event* event);
 
 char reponse[1024];
 
+int appui = 0;
+int appui2 = 0;
 
 
 int main(int argc, char *argv[])
@@ -88,7 +90,9 @@ int main(int argc, char *argv[])
 
     Uint32 temps = SDL_GetTicks()-50;
     Uint32 tempspasse;
-    int a1=0,a2=0;
+    int a1=0,a2=0,b1=0,b2=0;
+    
+    int c1=0,c2=0,d1=0,d2=0;
 
     while (boucle(&event))
     {
@@ -97,13 +101,25 @@ int main(int argc, char *argv[])
         glMatrixMode( GL_MODELVIEW );
         glLoadIdentity();
 
-        gluLookAt(-40,-40,300,0,0,0,0,0,1);
+        gluLookAt(-60,0,300,0,0,0,0,0,1);
         
         
         glPushMatrix();
-        if(event.button.x!=0 && event.button.y!=0){a1=event.button.x;a2=event.button.y;}
-        glRotated(a1*0.5,0,1,0);
-        glRotated(a2*0.5,1,0,0);         
+        if(!appui2){b1 = event.button.x - a1; b2 = event.button.y - a2 ;}
+        
+        if(appui2){a1=event.button.x-b1; a2=event.button.y-b2;}
+        
+        if(!appui){d1 = event.button.x - c1; d2 = event.button.y - c2 ;}
+        
+        if(appui){c1=event.button.x-d1; c2=event.button.y-d2;}
+        
+        glTranslatef( -c2*0.5, -c1*0.5,0);
+        
+        if(a1 != 0 || a2 != 0){
+        	float coef = sqrt(a1*a1 + a2*a2);
+        	glRotatef(coef*0.3, a1/coef, -a2/coef,0);
+        }
+        //glRotated(a2*0.5,1,0,0);         
         
         DrawMer();
         for_each(vec_sailboat.begin(), vec_sailboat.end(), DrawSailboat);
@@ -158,6 +174,19 @@ int boucle(SDL_Event* event){
                 default: ;
                 }
             break;
+        case SDL_MOUSEBUTTONDOWN:
+        	if(event->button.button == SDL_BUTTON_LEFT)
+				appui = 1;
+			else if(event->button.button == SDL_BUTTON_RIGHT)
+				appui2 = 1;
+			
+			break;
+		case SDL_MOUSEBUTTONUP:
+            if(event->button.button == SDL_BUTTON_LEFT)
+				appui = 0;
+			else if(event->button.button == SDL_BUTTON_RIGHT)
+				appui2 = 0;
+			break;
         default: ;
         }
     }
