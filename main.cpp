@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     World env = World(4,5);
     env.initialize();
 
-    DisplayAPI display("localhost", 13000);
+    DisplayAPI display(argv[1], 13000);
 
     while (boucle()==EXIT_SUCCESS)
     {
@@ -45,7 +45,14 @@ int main(int argc, char *argv[])
         {
             std::ostringstream nameStream;
             nameStream << "Auv" << i;
-            display.sendSailBoatState(nameStream.str(), env.vec_sailboat[i].x, env.vec_sailboat[i].y, env.vec_sailboat[i].theta);
+            display.sendSailBoatState(nameStream.str(), env.vec_sailboat[i].x, env.vec_sailboat[i].y, env.vec_sailboat[i].theta*180/M_PI, env.vec_sailboat[i].deltav*180/M_PI);
+        }
+
+        for (int i = 0; i < env.vec_buoy.size(); ++i)
+        {
+            std::ostringstream nameStream;
+            nameStream << "Buoy" << i;
+            display.sendBuoyState(nameStream.str(), env.vec_buoy[i].x, env.vec_buoy[i].y, env.vec_buoy[i].z);
         }
 
         //Formate les donnes par JSON TODO
@@ -54,7 +61,7 @@ int main(int argc, char *argv[])
 
         //Temps interne
         env.simuTime += dt;
-        usleep(50000);
+        usleep(100000);
         printf("\ntime : %f \n",env.simuTime);
     }
 

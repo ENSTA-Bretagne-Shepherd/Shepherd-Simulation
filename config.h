@@ -10,7 +10,7 @@
 #define DELAY_FRAME 30
 
 // World
-#define DT 0.2 // s
+#define DT 0.05 // s
 #define GRAV_CONST 9.81 // m/s²
 #define RHO_SALT_WATER 1.025 // kg/m³
 #define BOAT_NUMBER 4
