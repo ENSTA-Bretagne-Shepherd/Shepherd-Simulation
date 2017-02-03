@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sstream>
 #include <signal.h>
+#include <cstring>
 
 #include "world.h"
 #include "config.h"
@@ -18,6 +19,9 @@ void sig_handler(int signo);
 
 
 char message[1024];
+
+bool running_opengl = false;
+bool running_unity  = false;
 
 int main(int argc, char *argv[])
 {
@@ -34,11 +38,17 @@ int main(int argc, char *argv[])
     //DisplayAPI display("localhost", 13000);
     
     // initialisation du socket si le port est donné au lancement du programme
-    if (argc >= 2) {    
-         init_connection(argv[1]);
+    if (argc >= 3) {
+        if(argv[1][0] == 'o'){
+            running_opengl = true;
+            init_connection(argv[2]);
+        }
+        if(argv[1][0] == 'u')
+        {
+            running_unity = true;
+            init_unity_connection(argv[2], 13000);
+        }
     }
-
-    //DisplayAPI display(argv[1], 13000);
 
     while (1)
     {
@@ -52,26 +62,24 @@ int main(int argc, char *argv[])
         env.clock();
 
         // Send to Unity
-        /*
-        for (int i = 0; i < env.vec_sailboat.size(); ++i)
-        {
-            std::ostringstream nameStream;
-            nameStream << "Auv" << i;
-            display.sendSailBoatState(nameStream.str(), env.vec_sailboat[i].x, env.vec_sailboat[i].y, env.vec_sailboat[i].theta*180/M_PI, env.vec_sailboat[i].deltav*180/M_PI);
-        }
+        if(running_unity){
+            for (int i = 0; i < env.vec_sailboat.size(); ++i)
+            {
+                std::ostringstream nameStream;
+                nameStream << "Auv" << i;
+                sendSailBoatState(nameStream.str(), env.vec_sailboat[i].x, env.vec_sailboat[i].y, env.vec_sailboat[i].theta*180/M_PI, env.vec_sailboat[i].deltav*180/M_PI);
+            }
 
-        for (int i = 0; i < env.vec_buoy.size(); ++i)
-        {
-            std::ostringstream nameStream;
-            nameStream << "Buoy" << i;
-            display.sendBuoyState(nameStream.str(), env.vec_buoy[i].x, env.vec_buoy[i].y, env.vec_buoy[i].z);
+            for (int i = 0; i < env.vec_buoy.size(); ++i)
+            {
+                std::ostringstream nameStream;
+                nameStream << "Buoy" << i;
+                sendBuoyState(nameStream.str(), env.vec_buoy[i].x, env.vec_buoy[i].y, env.vec_buoy[i].z);
+            }
         }
-        //*/
-
-        //Formate les donnes par JSON TODO
 
         //Envoie les infos par la socket si l'on a défini le port
-        if (argc >= 2) {
+        if (running_opengl) {
         	char *output = message;
         	((Sailboat0*)output)[0] = env.vec_sailboat[0];
         	((Sailboat0*)output)[1] = env.vec_sailboat[1];
@@ -104,6 +112,9 @@ void sig_handler(int signo)
   if (signo == SIGINT){
     	printf("received SIGINT\n");
     	close_connection();
+        if(running_unity){
+            close_unity_connection();
+        }
     	exit(0);
     }
 }

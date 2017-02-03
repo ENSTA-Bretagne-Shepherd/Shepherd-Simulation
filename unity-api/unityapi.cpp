@@ -13,7 +13,9 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
-DisplayAPI::DisplayAPI(const char* peerHost, int peerPort)
+int sock;
+
+void init_unity_connection(const char* peerHost, int peerPort)
 {
 	// Create
 	sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -46,11 +48,11 @@ DisplayAPI::DisplayAPI(const char* peerHost, int peerPort)
     printf("Connected. Reading a server message.\n");
 }
 
-DisplayAPI::~DisplayAPI(){
+void close_unity_connection(){
     close(sock);
 }
 
-void DisplayAPI::sendParams(Params params){
+void sendParams(Params params){
     std::string msg = Value(params).toJSONString().append("\n");
 	
     int n = write(sock, msg.c_str(), msg.size());
@@ -58,7 +60,7 @@ void DisplayAPI::sendParams(Params params){
         printf("Error while writing to socket.\n");
 }
 
-void DisplayAPI::sendSailBoatState(std::string auvname, double x, double y, double theta, double thetav){
+void sendSailBoatState(std::string auvname, double x, double y, double theta, double thetav){
     Params p;
     p["name"] = auvname;
     p["x"] = x;
@@ -70,7 +72,7 @@ void DisplayAPI::sendSailBoatState(std::string auvname, double x, double y, doub
     sendParams(params);
 }
 
-void DisplayAPI::sendBuoyState(std::string auvname, double x, double y, double z){
+void sendBuoyState(std::string auvname, double x, double y, double z){
     Params p;
     p["name"] = auvname;
     p["x"] = x;
@@ -82,7 +84,7 @@ void DisplayAPI::sendBuoyState(std::string auvname, double x, double y, double z
     sendParams(params);
 }
 
-void DisplayAPI::displaySegment(double x1, double y1, double x2, double y2){
+void displaySegment(double x1, double y1, double x2, double y2){
     Params p;
     p["x1"] = x1;
     p["y1"] = y1;
