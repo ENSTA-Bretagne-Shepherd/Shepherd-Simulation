@@ -74,6 +74,7 @@ int main(int argc, char *argv[])
 	
 	std::vector<Sailboat0> vec_sailboat;
 	std::vector<Buoy0> vec_buoy;
+	std::vector<Flow> vec_flow;
 	
 	for (int i = 0; i < BOAT_NUMBER; ++i) {
         vec_sailboat.push_back(Sailboat0());
@@ -123,7 +124,10 @@ int main(int argc, char *argv[])
         
         DrawMer();
         for_each(vec_sailboat.begin(), vec_sailboat.end(), DrawSailboat);
-    	for_each(vec_buoy.begin(), vec_buoy.end(), DrawBouees);       
+    	for_each(vec_buoy.begin(), vec_buoy.end(), DrawBouees);
+    	glBegin(GL_QUADS);
+    		for_each(vec_flow.begin(), vec_flow.end(), DrawCourant);    
+    	glEnd();   
         
         glPopMatrix();
         

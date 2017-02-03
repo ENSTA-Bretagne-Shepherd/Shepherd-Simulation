@@ -32,8 +32,7 @@ void DrawMer()
 	//glDisable(GL_BLEND);
 }
 
-void DrawBouees(Buoy0 const&boue)
-{   
+void DrawBouees(Buoy0 const&boue){   
     	glPushMatrix();
     	
     	glTranslatef(boue.x,boue.y, boue.z);
@@ -43,6 +42,11 @@ void DrawBouees(Buoy0 const&boue)
         gluSphere(q,1.0,10,10);
         
         glPopMatrix();
+}
+
+void DrawCourant( Flow const&courant){
+	glVertex3f(courant.x,courant.y,courant.z);
+	glVertex3f(courant.x + courant.vx, courant.y + courant.vy, courant.z + courant.vz);
 }
 
 void DrawSailboat(Sailboat0 const&boat)
