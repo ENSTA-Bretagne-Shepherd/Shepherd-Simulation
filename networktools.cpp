@@ -63,7 +63,7 @@ int init_connection( char *port)
      
 char* wait_connection(char *reponse, int longueur){
      tour++;
-     usleep(20000);
+     //usleep(20000);
      	
      listen(sockfd,5);
      clilen = sizeof(cli_addr);

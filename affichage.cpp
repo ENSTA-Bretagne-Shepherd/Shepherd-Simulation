@@ -32,6 +32,34 @@ void DrawMer()
 	//glDisable(GL_BLEND);
 }
 
+void DrawMesh()
+{       
+	//glEnable(GL_BLEND);
+	//glDisable(GL_DEPTH_TEST);
+		glBegin(GL_LINES);
+		int k,j;
+		glColor3f(0.6,0.6,0.6);
+		for(k=-10;k<10;k++){
+           		
+           	glVertex3f(k*1000,10000,1);
+           	glVertex3f(k*1000,-10000,1);
+           		
+           	glVertex3f(10000,k*1000,1);
+           	glVertex3f(-10000,k*1000,1); 
+           	
+           	
+           	glVertex3f(k*1000,10000,-500);
+           	glVertex3f(k*1000,-10000,-500);
+           		
+           	glVertex3f(10000,k*1000,-500);
+           	glVertex3f(-10000,k*1000,-500);        
+        }
+        
+        glEnd();
+    //glEnable(GL_DEPTH_TEST);
+	//glDisable(GL_BLEND);
+}
+
 void DrawBouees(Buoy0 const&boue){   
     	glPushMatrix();
     	

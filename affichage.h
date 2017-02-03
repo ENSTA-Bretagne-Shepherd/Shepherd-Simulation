@@ -55,6 +55,8 @@ public:
 
 void DrawMer();
 
+void DrawMesh();
+
 void DrawCourant(Flow const&courant);
 
 void DrawBouees(Buoy0 const&boue);

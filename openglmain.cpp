@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-    gluPerspective(70,(double)LARGEUR_FENETRE/HAUTEUR_FENETRE,1,1000);    
+    gluPerspective(70,(double)LARGEUR_FENETRE/HAUTEUR_FENETRE,1,100000);    
     glEnable(GL_DEPTH_TEST);
     
     
@@ -123,6 +123,7 @@ int main(int argc, char *argv[])
         //glRotated(a2*0.5,1,0,0);         
         
         DrawMer();
+        DrawMesh();
         for_each(vec_sailboat.begin(), vec_sailboat.end(), DrawSailboat);
     	for_each(vec_buoy.begin(), vec_buoy.end(), DrawBouees);
     	glBegin(GL_QUADS);
