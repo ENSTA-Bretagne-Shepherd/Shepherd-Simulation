@@ -40,6 +40,7 @@ char reponse[1024];
 
 int appui = 0;
 int appui2 = 0;
+int appui3 = 0;
 
 
 int main(int argc, char *argv[])
@@ -93,7 +94,24 @@ int main(int argc, char *argv[])
     Uint32 tempspasse;
     int a1=0,a2=0,b1=0,b2=0;
     
-    int c1=0,c2=0,d1=0,d2=0;
+    
+    glMatrixMode( GL_MODELVIEW );
+    glLoadIdentity();
+
+    //gluLookAt(-60,0,300,0,0,0,0,0,1);
+    
+    
+    
+    GLdouble modelview[16];
+    GLdouble rotation[16];
+    
+    glGetDoublev( GL_MODELVIEW_MATRIX, rotation );
+    
+    glTranslatef(0,0,-300);
+    glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
+    
+    
+    
 
     while (boucle(&event))
     {
@@ -102,25 +120,62 @@ int main(int argc, char *argv[])
         glMatrixMode( GL_MODELVIEW );
         glLoadIdentity();
 
-        gluLookAt(-60,0,300,0,0,0,0,0,1);
+        //gluLookAt(-60,0,300,0,0,0,0,0,1);
+        
+        
+ 
+		
+        a1=event.button.x-b1; a2=event.button.y-b2;
+        
+        glPushMatrix();         
+        	if(appui2 && !appui){
+        		if(a1 != 0 || a2 != 0){
+        		float coef = sqrt(a1*a1 + a2*a2);
+        		glRotatef(coef*0.1, -a2/coef, -a1/coef,0);
+        		}
+        	}        
+        	if(appui && appui2){
+            	int dc= 0.001*((event.button.x-LARGEUR_FENETRE/2)*a2-(event.button.y-HAUTEUR_FENETRE/2)*a1);
+        		glRotatef(dc, 0, 0,-1);
+        	}
+        	glMultMatrixd(rotation);        
+        	glGetDoublev( GL_MODELVIEW_MATRIX, rotation );        
+        glPopMatrix();
         
         
         glPushMatrix();
-        if(!appui2){b1 = event.button.x - a1; b2 = event.button.y - a2 ;}
+        	glMultTransposeMatrixd(rotation);
         
-        if(appui2){a1=event.button.x-b1; a2=event.button.y-b2;}
+        	if(appui && !appui2){
+        		glTranslatef( a1*0.5, -a2*0.5,0);
+        	}
         
-        if(!appui){d1 = event.button.x - c1; d2 = event.button.y - c2 ;}
+        	if(appui3){
+        		glTranslatef( 0, 0,appui3*10);
+        	}
+        	glMultMatrixd(rotation);
+        	glMultMatrixd(modelview);
         
-        if(appui){c1=event.button.x-d1; c2=event.button.y-d2;}
+        	glGetDoublev( GL_MODELVIEW_MATRIX, modelview );        
+        glPopMatrix();
         
-        glTranslatef( -c2*0.5, -c1*0.5,0);
         
-        if(a1 != 0 || a2 != 0){
-        	float coef = sqrt(a1*a1 + a2*a2);
-        	glRotatef(coef*0.3, a1/coef, -a2/coef,0);
-        }
-        //glRotated(a2*0.5,1,0,0);         
+        glMultMatrixd(rotation);
+        glMultMatrixd(modelview);
+        
+        
+        appui3=0;
+        
+        b1 = event.button.x;
+        b2 = event.button.y;
+        
+        
+        
+        //glRotated(a2*0.5,1,0,0); 
+        
+        
+        
+                
         
         DrawMer();
         DrawMesh();
@@ -130,7 +185,6 @@ int main(int argc, char *argv[])
     		for_each(vec_flow.begin(), vec_flow.end(), DrawCourant);    
     	glEnd();   
         
-        glPopMatrix();
         
         char * buffer = connect(argv[2], argv[1], "recu", 4);
         
@@ -184,6 +238,10 @@ int boucle(SDL_Event* event){
 				appui = 1;
 			else if(event->button.button == SDL_BUTTON_RIGHT)
 				appui2 = 1;
+			else if(event->button.button == SDL_BUTTON_WHEELUP)
+				appui3++;
+			else if(event->button.button == SDL_BUTTON_WHEELDOWN)	
+				appui3--;
 			
 			break;
 		case SDL_MOUSEBUTTONUP:
@@ -191,6 +249,10 @@ int boucle(SDL_Event* event){
 				appui = 0;
 			else if(event->button.button == SDL_BUTTON_RIGHT)
 				appui2 = 0;
+			else if(event->button.button == SDL_BUTTON_WHEELUP)
+				appui3++;
+			else if(event->button.button == SDL_BUTTON_WHEELDOWN)	
+				appui3--;	
 			break;
         default: ;
         }

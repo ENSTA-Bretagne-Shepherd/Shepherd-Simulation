@@ -4,6 +4,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+#include "config.h"
+
 extern double dt;
 
 
@@ -22,7 +24,7 @@ void DrawMer()
 	//glEnable(GL_BLEND);
 	//glDisable(GL_DEPTH_TEST);
 		glBegin(GL_POLYGON);
-           glColor3f(0.5,0.5,1);
+           glColor3f(0.2,0.2,1);
            glVertex3f(-100000,-100000,0);
            glVertex3f(100000,-100000,0);
            glVertex3f(100000,100000,0);
@@ -83,12 +85,12 @@ void DrawSailboat(Sailboat0 const&boat)
 	glPushMatrix();
 	glBegin(GL_LINE_LOOP);  //ligne � suivre
 			glColor3f(1,1,0);
-			float ax = static_cast<float>(boat.cx+50*cos(0*2*M_PI/3));
-    		float ay = static_cast<float>(boat.cy+50*sin(0*2*M_PI/3));
-    		float bx = static_cast<float>(boat.cx+50*cos(1*2*M_PI/3));
-    		float by = static_cast<float>(boat.cy+50*sin(1*2*M_PI/3));
-    		float dx = static_cast<float>(boat.cx+50*cos(2*2*M_PI/3));
-    		float dy = static_cast<float>(boat.cy+50*sin(2*2*M_PI/3));
+			float ax = static_cast<float>(boat.cx+TAILLE_TRIANGLE*cos(0*2*M_PI/3));
+    		float ay = static_cast<float>(boat.cy+TAILLE_TRIANGLE*sin(0*2*M_PI/3));
+    		float bx = static_cast<float>(boat.cx+TAILLE_TRIANGLE*cos(1*2*M_PI/3));
+    		float by = static_cast<float>(boat.cy+TAILLE_TRIANGLE*sin(1*2*M_PI/3));
+    		float dx = static_cast<float>(boat.cx+TAILLE_TRIANGLE*cos(2*2*M_PI/3));
+    		float dy = static_cast<float>(boat.cy+TAILLE_TRIANGLE*sin(2*2*M_PI/3));
             glVertex3f(ax,ay,1);
             glVertex3f(bx,by,1);
             glVertex3f(dx,dy,1);

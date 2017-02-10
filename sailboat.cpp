@@ -1,6 +1,8 @@
 #include "sailboat.h"
 #include <stdio.h>
 
+#include "config.h"
+
 extern double dt;
 
 Sailboat::Sailboat(int n, double x,double y)
@@ -10,7 +12,7 @@ Sailboat::Sailboat(int n, double x,double y)
     theta =-3.0; v = 1; omega = 0.0;  phi = 0.5; phiPoint = 0;
     Jx = 3000.0; Jz = 10000.0; // moments d'inertie
     beta=0.1;  rg=2.0;  alphatheta=6000;  m=300.0;
-    alphaf=1.0;  rv=1.0;  alphag=2000.0; l=1.0;  alphav=1000.0;
+    alphaf=1.0;  rv=1.0;  alphag=4000.0; l=1.0;  alphav=1000.0;
     a=2;
     psi=M_PI;  //vent
     eta = 16000;     hv = 4.00;  //Roulis
@@ -37,10 +39,10 @@ void Sailboat::controller()   //voir www.ensta-bretagne.fr/jaulin/polyrobots.pdf
 {   double r=10;
     double zeta=M_PI/4;
     double ax,bx,ay,by;
-    ax=cx+50*cos(iseg*2*M_PI/3);
-    ay=cy+50*sin(iseg*2*M_PI/3);
-    bx=cx+50*cos((iseg+1)*2*M_PI/3);
-    by=cy+50*sin((iseg+1)*2*M_PI/3);
+    ax=cx+TAILLE_TRIANGLE*cos(iseg*2*M_PI/3);
+    ay=cy+TAILLE_TRIANGLE*sin(iseg*2*M_PI/3);
+    bx=cx+TAILLE_TRIANGLE*cos((iseg+1)*2*M_PI/3);
+    by=cy+TAILLE_TRIANGLE*sin((iseg+1)*2*M_PI/3);
     if((x-bx)*(ax-bx) + (y-by)*(ay-by) < 0)iseg++;
     
     double e=((bx-ax)*(y-ay)-(x-ax)*(by-ay))/hypot(ax-bx,ay-by);
