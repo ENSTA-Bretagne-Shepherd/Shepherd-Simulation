@@ -20,47 +20,60 @@ extern double dt;
 
 
 void DrawMer()
-{       
-	//glEnable(GL_BLEND);
-	//glDisable(GL_DEPTH_TEST);
-		glBegin(GL_POLYGON);
-           glColor3f(0.2,0.2,1);
-           glVertex3f(-100000,-100000,0);
-           glVertex3f(100000,-100000,0);
-           glVertex3f(100000,100000,0);
-           glVertex3f(-100000,100000,0);
-        glEnd();
-    //glEnable(GL_DEPTH_TEST);
-	//glDisable(GL_BLEND);
+{   
+
+	glEnable(GL_BLEND);
+	glDisable(GL_DEPTH_TEST);
+	int k,j;
+	
+		
+	glBegin(GL_POLYGON);
+       glColor4f(0.1,0.1,0.5,0.5);
+       glVertex3f(-100000,-100000,-2000);
+       glVertex3f(100000,-100000,-2000);
+       glVertex3f(100000,100000,-2000);
+       glVertex3f(-100000,100000,-2000);
+    glEnd();
+    
+    
+    glBegin(GL_LINES);
+    glColor4f(0,0,0,0.8);
+    for(k=-10;k<10;k++){
+        glVertex3f(k*1000,10000,-1999);
+        glVertex3f(k*1000,-10000,-1999);
+           		
+         glVertex3f(10000,k*1000,-1999);
+        glVertex3f(-10000,k*1000,-1999);        
+    }
+    glEnd();
+    
+    
+    glBegin(GL_POLYGON);
+       glColor4f(0.1,0.1,0.5,0.5);
+       glVertex3f(-100000,-100000,0);
+       glVertex3f(100000,-100000,0);
+       glVertex3f(100000,100000,0);
+       glVertex3f(-100000,100000,0);
+    glEnd();
+    
+    
+        
+    glBegin(GL_LINES);
+	glColor4f(0,0,0,0.8);
+	for(k=-10;k<10;k++){
+           	
+        glVertex3f(k*1000,10000,1);
+        glVertex3f(k*1000,-10000,1);
+           		
+        glVertex3f(10000,k*1000,1);
+        glVertex3f(-10000,k*1000,1); 
+    }
+    glEnd();
+       
+    glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
 }
 
-void DrawMesh()
-{       
-	//glEnable(GL_BLEND);
-	//glDisable(GL_DEPTH_TEST);
-		glBegin(GL_LINES);
-		int k,j;
-		glColor3f(0.6,0.6,0.6);
-		for(k=-10;k<10;k++){
-           		
-           	glVertex3f(k*1000,10000,1);
-           	glVertex3f(k*1000,-10000,1);
-           		
-           	glVertex3f(10000,k*1000,1);
-           	glVertex3f(-10000,k*1000,1); 
-           	
-           	
-           	glVertex3f(k*1000,10000,-500);
-           	glVertex3f(k*1000,-10000,-500);
-           		
-           	glVertex3f(10000,k*1000,-500);
-           	glVertex3f(-10000,k*1000,-500);        
-        }
-        
-        glEnd();
-    //glEnable(GL_DEPTH_TEST);
-	//glDisable(GL_BLEND);
-}
 
 void DrawBouees(Buoy0 const&boue){   
     	glPushMatrix();
@@ -74,9 +87,36 @@ void DrawBouees(Buoy0 const&boue){
         glPopMatrix();
 }
 
-void DrawCourant( Flow const&courant){
-	glVertex3f(courant.x,courant.y,courant.z);
-	glVertex3f(courant.x + courant.vx, courant.y + courant.vy, courant.z + courant.vz);
+void DrawCourant(){
+
+	int k,j,i;
+	double x1 = 2000;
+	double y1 = 1000;
+	double R1 = 1000;
+	double x2 = -1000;
+	double y2 = -2000;
+	double R2 = 1000;
+	double u,v;
+	glColor3f(1,0,0);
+	
+	glBegin(GL_LINES);
+	
+	for(k=-50;k<50;k++){
+			for(j=-50;j<50;j++){
+				double x=200*j;
+				double y=200*k;
+				double z=-1000;
+				u=2*y*(y-y1)/(R1*R1)*exp(-((x-x1)*(x-x1) + (y-y1)*(y-y1))/(R1*R1));
+				v=-2*x*(x-x1)/(R1*R1)*exp(-((x-x1)*(x-x1) + (y-y1)*(y-y1))/(R1*R1));
+				u+=2*y*(y-y2)/(R2*R2)*exp(-((x-x2)*(x-x2) + (y-y2)*(y-y2))/(R2*R2));
+				v+=-2*x*(x-x2)/(R2*R2)*exp(-((x-x2)*(x-x2) + (y-y2)*(y-y2))/(R2*R2));
+				
+				glVertex3d(x,y,z);
+           		glVertex3d(x+100*u, y+100*v, z);
+           	}
+		
+	}
+    glEnd(); 
 }
 
 void DrawSailboat(Sailboat0 const&boat)

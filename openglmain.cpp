@@ -68,6 +68,9 @@ int main(int argc, char *argv[])
     gluPerspective(70,(double)LARGEUR_FENETRE/HAUTEUR_FENETRE,1,100000);    
     glEnable(GL_DEPTH_TEST);
     
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable( GL_BLEND );
+    
     
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
@@ -75,7 +78,6 @@ int main(int argc, char *argv[])
 	
 	std::vector<Sailboat0> vec_sailboat;
 	std::vector<Buoy0> vec_buoy;
-	std::vector<Flow> vec_flow;
 	
 	for (int i = 0; i < BOAT_NUMBER; ++i) {
         vec_sailboat.push_back(Sailboat0());
@@ -116,7 +118,8 @@ int main(int argc, char *argv[])
     while (boucle(&event))
     {
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
+		glClearColor(0.6, 0.7, 1, 1);
+		
         glMatrixMode( GL_MODELVIEW );
         glLoadIdentity();
 
@@ -168,22 +171,18 @@ int main(int argc, char *argv[])
         
         b1 = event.button.x;
         b2 = event.button.y;
+             
         
         
-        
-        //glRotated(a2*0.5,1,0,0); 
-        
+        DrawCourant();        
         
         
-                
-        
-        DrawMer();
-        DrawMesh();
-        for_each(vec_sailboat.begin(), vec_sailboat.end(), DrawSailboat);
     	for_each(vec_buoy.begin(), vec_buoy.end(), DrawBouees);
-    	glBegin(GL_QUADS);
-    		for_each(vec_flow.begin(), vec_flow.end(), DrawCourant);    
-    	glEnd();   
+    	
+    	DrawMer();
+    	
+    	for_each(vec_sailboat.begin(), vec_sailboat.end(), DrawSailboat);
+    	  
         
         
         char * buffer = connect(argv[2], argv[1], "recu", 4);
