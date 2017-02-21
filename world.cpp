@@ -6,6 +6,8 @@
 #include "sailboat.h"
 #include "buoy.h"
 #include "config.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 World::World(int sailboat, int buoy) {
 
@@ -25,7 +27,7 @@ World::World(int sailboat, int buoy) {
         double y = 7.40;
         double z = 0;
         const double u = 0;
-        vec_buoy.push_back(Buoy(i+1,x,y,z,u));
+        vec_buoy.push_back(Buoy(i+1,x + (rand()%100),y+ (rand()%100),z,u));
     }
 }
 

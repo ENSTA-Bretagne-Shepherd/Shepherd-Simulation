@@ -37,7 +37,7 @@ void DrawMer()
     
     
     glBegin(GL_LINES);
-    glColor4f(0,0,0,0.8);
+    glColor4f(0,0,0,0.5);
     for(k=-10;k<10;k++){
         glVertex3f(k*1000,10000,-1999);
         glVertex3f(k*1000,-10000,-1999);
@@ -59,7 +59,7 @@ void DrawMer()
     
         
     glBegin(GL_LINES);
-	glColor4f(0,0,0,0.8);
+	glColor4f(0,0,0,1);
 	for(k=-10;k<10;k++){
            	
         glVertex3f(k*1000,10000,1);
@@ -90,12 +90,6 @@ void DrawBouees(Buoy0 const&boue){
 void DrawCourant(){
 
 	int k,j,i;
-	double x1 = 2000;
-	double y1 = 1000;
-	double R1 = 1000;
-	double x2 = -1000;
-	double y2 = -2000;
-	double R2 = 1000;
 	double u,v;
 	glColor3f(1,0,0);
 	
@@ -103,16 +97,26 @@ void DrawCourant(){
 	
 	for(k=-50;k<50;k++){
 			for(j=-50;j<50;j++){
-				double x=200*j;
-				double y=200*k;
-				double z=-1000;
-				u=2*y*(y-y1)/(R1*R1)*exp(-((x-x1)*(x-x1) + (y-y1)*(y-y1))/(R1*R1));
-				v=-2*x*(x-x1)/(R1*R1)*exp(-((x-x1)*(x-x1) + (y-y1)*(y-y1))/(R1*R1));
-				u+=2*y*(y-y2)/(R2*R2)*exp(-((x-x2)*(x-x2) + (y-y2)*(y-y2))/(R2*R2));
-				v+=-2*x*(x-x2)/(R2*R2)*exp(-((x-x2)*(x-x2) + (y-y2)*(y-y2))/(R2*R2));
+				double x=20*j;
+				double y=20*k;
+				double z=-100;
 				
+				double Xi[] = {150,100,-100,-100};
+    			double Yi[] = {100,-100,150,-100};
+    			
+    			double phi[] = {10,-10,10,-10};
+    			double Ri = 100;
+				u=v=0;
+    			for (int i=0;i<4;i++)
+    			{
+        			double d2 = (x-Xi[i])*(x-Xi[i])+(y-Yi[i])*(y-Yi[i]);
+
+        			u   += phi[i]*2*y*(y-Yi[i])*exp(-1*d2/(Ri*Ri))/(Ri*Ri);
+        			v   -= phi[i]*2*x*(x-Xi[i])*exp(-1*d2/(Ri*Ri))/(Ri*Ri);
+        		}
+	
 				glVertex3d(x,y,z);
-           		glVertex3d(x+100*u, y+100*v, z);
+           		glVertex3d(x+u, y+v, z);
            	}
 		
 	}

@@ -78,17 +78,50 @@ void Buoy::stateEq(void)
 
 void Buoy::eqParticule(void)
 {
-    vx = -2*sin(y);
-    vy = 2*sin(x);
+    //vx = -2*sin(y);
+    //vy = 2*sin(x);
+    
+    double d2;
+    double dvxx, dvyx, dvxy, dvyy;
+    vx = 0;
+    vy = 0;
+    dvxx = 0;
+    dvyx = 0;
+    dvxy = 0;
+    dvyy = 0;
+    
+    double Xi[] = {150,100,-100,-100};
+    double Yi[] = {100,-100,150,-100};
+    double phi[] = {5,-5,5,-5};
+    double Ri = 100;
+
+    for (int i=0;i<4;i++)
+    {
+        double d2 = (x-Xi[i])*(x-Xi[i])+(y-Yi[i])*(y-Yi[i]);
+		double u = phi[i]*2*y*(y-Yi[i])*exp(-1*d2/(Ri*Ri))/(Ri*Ri);
+		double v =-phi[i]*2*x*(x-Xi[i])*exp(-1*d2/(Ri*Ri))/(Ri*Ri);
+        vx += u;
+        vy += v;
+
+        dvxx += -2*(x-Xi[i])/(Ri*Ri)*u;
+        dvxy += -2*(y-Yi[i])/(Ri*Ri)*u + phi[i]*2*(2*y-Yi[i])*exp(-1*d2/(Ri*Ri))/(Ri*Ri);
+        dvyy += -2*(y-Yi[i])/(Ri*Ri)*v;
+        dvxy += -2*(x-Xi[i])/(Ri*Ri)*v - phi[i]*2*(2*x-Xi[i])*exp(-1*d2/(Ri*Ri))/(Ri*Ri);
+    }
+
+    Dx = vx*dvxx+vy*dvxy;
+    Dy = vx*dvyx+vy*dvyy;
 }
+
+
 
 void Buoy::vortex(void)
 {
     //Dx = vy*0.5*(1+sin(theta*z))*2*cos(y);
     //Dy = vx*0.5*(1+sin(theta*z))*2*cos(x);
     eqParticule();
-    Dx = -4*sin(x)*cos(y);
-    Dy = 4*sin(y)*cos(x);
+    //Dx = -4*sin(x)*cos(y);
+    //Dy = 4*sin(y)*cos(x);
     mvol = BUOY_MASS/(BUOY_VOLUME-volBal);
     delta = mvol/RHO_SALT_WATER;
     Xdot2[0] = delta * Dx - mu * (Xdot[0] - vx);
@@ -138,7 +171,7 @@ void Buoy::clock(void)  // The model is described in "L. Jaulin Modélisation et
     printf("Buoy acc z : %f speed : %f \n\n\n",Xdot2[2],Xdot[2]);
 */
     vortex();
-    rotation();
+    //rotation();
 /*
     printf("Buoy acc x : %f speed : %f \n",Xdot2[0],Xdot[0]);
     printf("Buoy acc y : %f speed : %f \n",Xdot2[1],Xdot[1]);
